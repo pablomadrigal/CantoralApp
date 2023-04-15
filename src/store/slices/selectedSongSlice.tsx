@@ -28,19 +28,28 @@ const songToSlide = (song: SongSchema) => {
   orderedVerses.forEach((verse) => {
     if (verse.Lines.length > 8) {
       const middle = verse.Lines.length / 2;
-      const firstSlide: SliceSchema = { Lines: [] };
+      const firstSlide: SliceSchema = {
+        Lines: [],
+        SlideNumber: temporalSlides.length,
+      };
       for (let i = 0; i < middle; i++) {
         firstSlide.Lines.push(verse.Lines[i]);
       }
       temporalSlides.push(firstSlide);
 
-      const secondSlide: SliceSchema = { Lines: [] };
+      const secondSlide: SliceSchema = {
+        Lines: [],
+        SlideNumber: temporalSlides.length,
+      };
       for (let i = middle; i < verse.Lines.length; i++) {
         secondSlide.Lines.push(verse.Lines[i]);
       }
       temporalSlides.push(secondSlide);
     } else {
-      temporalSlides.push({ Lines: verse.Lines });
+      temporalSlides.push({
+        Lines: verse.Lines,
+        SlideNumber: temporalSlides.length,
+      });
     }
   });
 

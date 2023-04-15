@@ -41,5 +41,6 @@ export interface VerseSchema {
 }
 
 export interface SliceSchema {
+  SlideNumber: number;
   Lines: LineSchema[];
 }

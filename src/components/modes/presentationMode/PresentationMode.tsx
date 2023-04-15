@@ -92,7 +92,15 @@ const PresentationMode = () => {
               >
                 {slides[currentIdx] &&
                   slides[currentIdx].Lines.map((item) => {
-                    return <div key={item.Letter}>{item.Letter}</div>;
+                    return (
+                      <div
+                        key={`${item.Letter.substring(0, 5)} - ${
+                          item.LineNumber
+                        }`}
+                      >
+                        {item.Letter}
+                      </div>
+                    );
                   })}
               </Box>
             </div>
@@ -128,7 +136,7 @@ const PresentationMode = () => {
                   {slides?.map((slide, idx) => {
                     return (
                       <StyledDot
-                        key={slide.Lines[0].LineNumber}
+                        key={slide.SlideNumber}
                         selected={idx === currentIdx}
                         onClick={() => dispatch(goToSlide(idx))}
                       />
