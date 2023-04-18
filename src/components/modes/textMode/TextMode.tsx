@@ -24,7 +24,12 @@ const TextMode = () => {
 
   if (selectedSong)
     return (
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Paper sx={{ p: 3 }}>
           <Typography variant="h5" align="center">
             {songBookNumber} - {selectedSong.Title}
