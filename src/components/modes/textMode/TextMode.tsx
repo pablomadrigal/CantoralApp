@@ -50,12 +50,7 @@ const TextMode = () => {
           {selectedSong.Verses.map((verse) => {
             if (!verse.OnlyPresenter)
               return (
-                <Typography
-                  key={verse.Type}
-                  noWrap
-                  component="div"
-                  textAlign="left"
-                >
+                <Typography key={verse.Type} component="div" textAlign="left">
                   <br />
                   {verse.Type.includes("E") && (
                     <span style={{ fontWeight: "bold" }}>Estribillo</span>

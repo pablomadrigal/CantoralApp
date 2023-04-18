@@ -64,9 +64,9 @@ const PresentationMode = () => {
 
   if (selectedSong && slides)
     return (
-      <Box>
+      <>
         <Grid container spacing={0} direction="row" alignItems="stretch">
-          <Grid item zeroMinWidth>
+          <Grid item md={1}>
             <Button
               sx={{ height: "100%" }}
               onClick={() => dispatch(prevSlide())}
@@ -75,7 +75,7 @@ const PresentationMode = () => {
               {currentIdx > 0 && <ChevronLeftIcon />}
             </Button>
           </Grid>
-          <Grid item xs zeroMinWidth>
+          <Grid item xs md={10}>
             <Box
               sx={{
                 display: "flex",
@@ -149,7 +149,7 @@ const PresentationMode = () => {
               <Grid item xs zeroMinWidth></Grid>
             </Grid>
           </Grid>
-          <Grid item zeroMinWidth>
+          <Grid item md={1}>
             <Button
               sx={{ height: "100%" }}
               onClick={() => dispatch(nextSlide())}
@@ -163,7 +163,7 @@ const PresentationMode = () => {
             </Button>
           </Grid>
         </Grid>
-      </Box>
+      </>
     );
   else return <div />;
 };
