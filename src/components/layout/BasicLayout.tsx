@@ -3,9 +3,9 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import NavBar from "../navbar/NavBar";
-import MusicPlayer from "../music/MusicPlayer";
 import { useSelector } from "../../hooks/useRedux";
-import { showAudioControlSelector } from "../../store/slices/generalConfigSlice";
+import MusicControl from "../music/MusicControl";
+import { showAudioControlSelector } from "../../store/slices/musicSlice";
 
 interface BasicLayoutProps {
   children: ReactNode;
@@ -35,7 +35,7 @@ const BasicLayout: FC<BasicLayoutProps> = ({ children }) => {
       <CssBaseline />
       <NavBar />
       <Main musicPlayer={showAudioControl}>{children}</Main>
-      {showAudioControl && <MusicPlayer />}
+      {showAudioControl && <MusicControl />}
     </Box>
   );
 };

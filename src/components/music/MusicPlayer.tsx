@@ -1,62 +1,59 @@
-import { AppBar, Box, Fab, IconButton, Toolbar, styled } from "@mui/material";
+import { useState, useRef, SyntheticEvent } from "react";
+import { IconButton, Tooltip } from "@mui/material";
+import { Headset as HeadsetIcon } from "@mui/icons-material";
 
-import {
-  Menu as MenuIcon,
-  PlayArrow as PlayArrowIcon,
-  Search as SearchIcon,
-  MoreVert as MoreIcon,
-} from "@mui/icons-material";
+export interface MusicPlayerProps {
+  url?: string;
+}
+const MusicPlayer = ({ url }: MusicPlayerProps) => {
+  const audioElement = useRef<HTMLAudioElement>(null);
+  const [error, setError] = useState(true);
 
-const StyledFab = styled(Fab)({
-  position: "absolute",
-  zIndex: 2,
-  top: -30,
-  left: 0,
-  right: 0,
-  margin: "0 auto",
-  backgroundColor: "#395479",
-  color: "white",
-});
+  const tooglePlay = () => {
+    if (audioElement.current) {
+      if (audioElement.current.paused) {
+        void audioElement.current.play();
+      } else {
+        void audioElement.current.pause();
+      }
+    }
+  };
 
-const StyledFabClose = styled(Fab)(({ theme }) => ({
-  position: "absolute",
-  bottom: theme.spacing(5),
-  right: theme.spacing(3),
-  backgroundColor: "#dddddd",
-  color: "black",
-  zIndex: 0,
-  "&:focus": {
-    outline: "none",
-  },
-}));
+  const onEventListener = (event: SyntheticEvent<HTMLAudioElement>) => {
+    if (event.type === "error") {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  };
 
-const MusicPlayer = () => {
   return (
-    <div>
-      <StyledFabClose aria-label="close" size="small">
-        x
-      </StyledFabClose>
-      <AppBar
-        position="fixed"
-        sx={{ top: "auto", bottom: 0, backgroundColor: "#dddddd" }}
+    <>
+      <Tooltip title={error ? "No hay audio disponible" : "Reproducir musica"}>
+        <span>
+          <IconButton
+            size="large"
+            aria-label="toogle music"
+            color="inherit"
+            onClick={tooglePlay}
+            sx={[{ "&:focus": { outline: "none" } }]}
+            disabled={error}
+          >
+            <HeadsetIcon />
+          </IconButton>
+        </span>
+      </Tooltip>
+      <audio
+        ref={audioElement}
+        src={url}
+        onLoadedData={onEventListener}
+        onError={onEventListener}
       >
-        <Toolbar sx={{ zIndex: 1 }}>
-          <IconButton color="inherit" aria-label="open drawer">
-            <MenuIcon />
-          </IconButton>
-          <StyledFab aria-label="add">
-            <PlayArrowIcon />
-          </StyledFab>
-          <Box sx={{ flexGrow: 1 }} />
-          <IconButton color="inherit">
-            <SearchIcon />
-          </IconButton>
-          <IconButton color="inherit">
-            <MoreIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </div>
+        Your browser does not support the
+        <code>audio</code> element.
+      </audio>
+      {audioElement.current?.duration}
+    </>
   );
 };
 

@@ -1,20 +1,16 @@
-import { AppBar, IconButton, Toolbar } from "@mui/material";
-import { Headset as HeadsetIcon } from "@mui/icons-material";
+import { AppBar, Toolbar } from "@mui/material";
 import ModeMenu from "../menus/ModeMenu";
 import FullScreenButton from "./FullScreenButton";
 import SettingsMenu from "../menus/SettingsMenu";
 import LetterSizeMenu from "../menus/LetterSizeMenu";
-import {
-  cantoralModeSelector,
-  toggleAudioControl,
-} from "../../store/slices/generalConfigSlice";
-import { useDispatch, useSelector } from "../../hooks/useRedux";
+import { cantoralModeSelector } from "../../store/slices/generalConfigSlice";
+import { useSelector } from "../../hooks/useRedux";
 import CantoralModeConstants from "../../constants/SettingsConstants";
 import SearchSongButton from "./SearchSongButton";
+import MusicButton from "../music/MusicButton";
 
 const NavBar = () => {
   const cantoralMode = useSelector(cantoralModeSelector);
-  const dispatch = useDispatch();
 
   return (
     <AppBar position="fixed" style={{ backgroundColor: "#395479" }}>
@@ -26,15 +22,7 @@ const NavBar = () => {
             <LetterSizeMenu />
           )}
           <ModeMenu />
-          <IconButton
-            size="large"
-            aria-label="toogle music"
-            color="inherit"
-            onClick={() => dispatch(toggleAudioControl())}
-            sx={[{ "&:focus": { outline: "none" } }]}
-          >
-            <HeadsetIcon />
-          </IconButton>
+          <MusicButton />
           <FullScreenButton />
           <SettingsMenu />
         </div>
