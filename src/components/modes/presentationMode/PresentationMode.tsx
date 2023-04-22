@@ -64,9 +64,9 @@ const PresentationMode = () => {
 
   if (selectedSong && slides)
     return (
-      <Box>
+      <>
         <Grid container spacing={0} direction="row" alignItems="stretch">
-          <Grid item zeroMinWidth>
+          <Grid item md={1}>
             <Button
               sx={{ height: "100%" }}
               onClick={() => dispatch(prevSlide())}
@@ -75,35 +75,32 @@ const PresentationMode = () => {
               {currentIdx > 0 && <ChevronLeftIcon />}
             </Button>
           </Grid>
-          <Grid item xs zeroMinWidth>
-            <div
-              style={{
+          <Grid item xs md={10}>
+            <Box
+              sx={{
                 display: "flex",
+                fontSize: 40 + textSize,
+                textAlign: "center",
+                flexDirection: "column",
+                margin: 3,
                 justifyContent: "center",
                 alignItems: alignText,
+                height: "69vh",
               }}
             >
-              <Box
-                sx={{
-                  fontSize: 40 + textSize,
-                  textAlign: "center",
-                  margin: 3,
-                }}
-              >
-                {slides[currentIdx] &&
-                  slides[currentIdx].Lines.map((item) => {
-                    return (
-                      <div
-                        key={`${item.Letter.substring(0, 5)} - ${
-                          item.LineNumber
-                        }`}
-                      >
-                        {item.Letter}
-                      </div>
-                    );
-                  })}
-              </Box>
-            </div>
+              {slides[currentIdx] &&
+                slides[currentIdx].Lines.map((item) => {
+                  return (
+                    <div
+                      key={`${item.Letter.substring(0, 5)} - ${
+                        item.LineNumber
+                      }`}
+                    >
+                      {item.Letter}
+                    </div>
+                  );
+                })}
+            </Box>
             <Grid
               container
               spacing={0}
@@ -118,6 +115,11 @@ const PresentationMode = () => {
                     fontSize: 30,
                     textAlign: "left",
                     color: "#57585b",
+                    overflow: "hidden",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    lineClamp: 3,
+                    WebkitBoxOrient: "vertical",
                   }}
                 >
                   {songBookNumber} {selectedSong.Title}
@@ -147,7 +149,7 @@ const PresentationMode = () => {
               <Grid item xs zeroMinWidth></Grid>
             </Grid>
           </Grid>
-          <Grid item zeroMinWidth>
+          <Grid item md={1}>
             <Button
               sx={{ height: "100%" }}
               onClick={() => dispatch(nextSlide())}
@@ -161,7 +163,7 @@ const PresentationMode = () => {
             </Button>
           </Grid>
         </Grid>
-      </Box>
+      </>
     );
   else return <div />;
 };

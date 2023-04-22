@@ -16,11 +16,11 @@ type StyledMainProps = {
 };
 
 const Main = styled("main")<StyledMainProps>(({ musicPlayer, theme }) => ({
+  width: "100vw",
+  height: "100vh",
   flexGrow: 1,
   paddingBottom: musicPlayer ? theme.spacing(12) : theme.spacing(5),
-  paddingTop: theme.spacing(10),
-  paddingLeft: theme.spacing(10),
-  paddingRight: theme.spacing(10),
+  paddingTop: theme.spacing(8),
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
