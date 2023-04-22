@@ -5,7 +5,6 @@ import { SearchSchema } from "../../types/SearchTypes";
 interface generalConfigStateInferface {
   cantoralMode: string;
   showChores: boolean;
-  showAudioControl: boolean;
   selectedSong: string | null;
   selectedSongBook: string;
   searchText: SearchSchema[] | null;
@@ -15,7 +14,6 @@ interface generalConfigStateInferface {
 const initialState: generalConfigStateInferface = {
   cantoralMode: CantoralModeConstants.TEXT,
   showChores: false,
-  showAudioControl: false,
   selectedSong: null,
   selectedSongBook: "CADV2019",
   searchText: null,
@@ -37,9 +35,6 @@ const generalConfigSlice = createSlice({
     },
     setHideChores: (state) => {
       state.showChores = false;
-    },
-    toggleAudioControl: (state) => {
-      state.showAudioControl = !state.showAudioControl;
     },
     setSearchText: (
       state,
@@ -85,7 +80,6 @@ export const {
   setHideChores,
   setTextMode,
   setPresentationMode,
-  toggleAudioControl,
   setSearchText,
   setSelectedSongId,
   resetSelectedSongId,
@@ -115,11 +109,6 @@ export const searchTextSelector = createSelector(
 export const selectedSongBookSelector = createSelector(
   [generalConfigState],
   (state: generalConfigStateInferface) => state.selectedSongBook
-);
-
-export const showAudioControlSelector = createSelector(
-  [generalConfigState],
-  (state: generalConfigStateInferface) => state.showAudioControl
 );
 
 export default generalConfigSlice.reducer;
