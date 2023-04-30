@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { SliceSchema, SongSchema, VerseSchema } from "../../types/SongTypes";
+import { AlignTextConstants } from "../../constants/SettingsConstants";
 
 interface selectedSongStateInferface {
   selectedSong: SongSchema | null;
@@ -75,7 +76,7 @@ const goToPrevSlide = ({ currentIdx, totalSlides }: updateIndexInterface) => {
 const initialState: selectedSongStateInferface = {
   selectedSong: null,
   currentIdx: 0,
-  alignText: "center",
+  alignText: AlignTextConstants.CENTER,
   slides: null,
 };
 
@@ -92,6 +93,16 @@ const selectedSongSlice = createSlice({
     ) => {
       state.selectedSong = action.payload;
       state.slides = songToSlide(action.payload);
+      state.currentIdx = 0;
+    },
+    setAlignTextCenter: (state) => {
+      state.alignText = AlignTextConstants.CENTER;
+    },
+    setAlignTextStart: (state) => {
+      state.alignText = AlignTextConstants.FLEX_START;
+    },
+    setAlignTextEnd: (state) => {
+      state.alignText = AlignTextConstants.FLEX_END;
     },
     resetSelectedSong: () => initialState,
     nextSlide: (state) => {
@@ -122,6 +133,9 @@ const selectedSongSlice = createSlice({
 export const {
   setSelectedSong,
   resetSelectedSong,
+  setAlignTextCenter,
+  setAlignTextStart,
+  setAlignTextEnd,
   nextSlide,
   prevSlide,
   goToSlide,
