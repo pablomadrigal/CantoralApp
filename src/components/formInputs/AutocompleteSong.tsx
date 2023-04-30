@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable react/display-name */
 import {
   Box,
   TextField,
@@ -20,7 +18,7 @@ import { data_idb } from "../../store/idb";
 import { setSelectedSong } from "../../store/slices/selectedSongSlice";
 
 export interface autoCompleteSongProps {
-  onSelectedSong: (arg0: string) => void;
+  onSelectedSong?: (arg0: string) => void;
 }
 
 const StyledTextField = styled(TextField)(() => ({
@@ -56,7 +54,7 @@ const AutocompleteSong = forwardRef<HTMLInputElement, autoCompleteSongProps>(
             if (song) dispatch(setSelectedSong(song));
           });
         });
-        onSelectedSong(value._id);
+        if (onSelectedSong) onSelectedSong(value._id);
       }
     };
 
@@ -134,5 +132,7 @@ const AutocompleteSong = forwardRef<HTMLInputElement, autoCompleteSongProps>(
     );
   }
 );
+
+AutocompleteSong.displayName = "AutocompleteSong";
 
 export default AutocompleteSong;

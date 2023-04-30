@@ -1,10 +1,11 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import CantoralModeConstants from "../../constants/SettingsConstants";
+import { CantoralModeConstants } from "../../constants/SettingsConstants";
 import { SearchSchema } from "../../types/SearchTypes";
 
 interface generalConfigStateInferface {
   cantoralMode: string;
   showChores: boolean;
+  showPresenterModal: boolean;
   selectedSong: string | null;
   selectedSongBook: string;
   searchText: SearchSchema[] | null;
@@ -14,6 +15,7 @@ interface generalConfigStateInferface {
 const initialState: generalConfigStateInferface = {
   cantoralMode: CantoralModeConstants.TEXT,
   showChores: false,
+  showPresenterModal: false,
   selectedSong: null,
   selectedSongBook: "CADV2019",
   searchText: null,
@@ -29,6 +31,9 @@ const generalConfigSlice = createSlice({
     },
     setPresentationMode: (state) => {
       state.cantoralMode = CantoralModeConstants.PRESENTATION;
+    },
+    setShowPresenterModal: (state) => {
+      state.showPresenterModal = !state.showPresenterModal;
     },
     setShowChores: (state) => {
       state.showChores = true;
@@ -66,11 +71,11 @@ const generalConfigSlice = createSlice({
     ) => {
       state.selectedSongBook = action.payload;
     },
-    setMoreTextSize: (state) => {
-      state.textSize = state.textSize + 1;
-    },
     setLessTextSize: (state) => {
       state.textSize = state.textSize - 1;
+    },
+    setMoreTextSize: (state) => {
+      state.textSize = state.textSize + 1;
     },
   },
 });
@@ -80,12 +85,13 @@ export const {
   setHideChores,
   setTextMode,
   setPresentationMode,
+  setShowPresenterModal,
   setSearchText,
   setSelectedSongId,
   resetSelectedSongId,
   setSelectedSongBook,
-  setMoreTextSize,
   setLessTextSize,
+  setMoreTextSize,
 } = generalConfigSlice.actions;
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
@@ -99,6 +105,11 @@ export const textSizeSelector = createSelector(
 export const cantoralModeSelector = createSelector(
   [generalConfigState],
   (state: generalConfigStateInferface) => state.cantoralMode
+);
+
+export const showPresenterModalSelector = createSelector(
+  [generalConfigState],
+  (state: generalConfigStateInferface) => state.showPresenterModal
 );
 
 export const searchTextSelector = createSelector(

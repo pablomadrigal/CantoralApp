@@ -2,5 +2,8 @@ export const CantoralModeConstants = {
   TEXT: "text",
   PRESENTATION: "presentation",
 };
-
-export default CantoralModeConstants;
+export const AlignTextConstants = {
+  CENTER: "center",
+  FLEX_START: "flex-start",
+  FLEX_END: "flex-end",
+};
