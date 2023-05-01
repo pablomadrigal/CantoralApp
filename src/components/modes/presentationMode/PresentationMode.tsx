@@ -60,7 +60,7 @@ const PresentationMode = () => {
     } else {
       setSongBookNumber("");
     }
-  }, [selectedSong]);
+  }, [selectedSong, selectedSongBook]);
 
   if (selectedSong && slides)
     return (
