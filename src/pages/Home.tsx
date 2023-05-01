@@ -13,6 +13,7 @@ import {
 } from "../store/slices/generalConfigSlice";
 import { selectedSongSelector } from "../store/slices/selectedSongSlice";
 import PresenterModal from "../components/modal/PresenterModal";
+import { CircularProgress } from "@mui/material";
 
 function Home() {
   const { error, loading } = useGetSongs();
@@ -22,11 +23,23 @@ function Home() {
   const showPresenterModal = useSelector(showPresenterModalSelector);
 
   return (
-    <div>
+    <BasicLayout>
       {loading ? (
-        <div>Loading</div>
+        <div
+          style={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            color: "#395479",
+          }}
+        >
+          <CircularProgress />
+          Se estan cargando las canciones...
+        </div>
       ) : (
-        <BasicLayout>
+        <>
           {error && <div>{error}</div>}
           {!selectedSong && (
             <Logo fillColor="#395479" height="100%" width="100%" />
@@ -42,9 +55,9 @@ function Home() {
                 <PresenterModal />
               </NewWindow>
             )}
-        </BasicLayout>
+        </>
       )}
-    </div>
+    </BasicLayout>
   );
 }
 
