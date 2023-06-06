@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { SliceSchema, SongSchema, VerseSchema } from "../../types/SongTypes";
+import {
+  SliceSchema,
+  SongInterface,
+  VerseInterface,
+} from "../../types/SongTypes";
 import { AlignTextConstants } from "../../constants/SettingsConstants";
 
 interface selectedSongStateInferface {
-  selectedSong: SongSchema | null;
+  selectedSong: SongInterface | null;
   slides: SliceSchema[] | null;
   currentIdx: number;
   alignText: string;
@@ -15,41 +19,41 @@ interface updateIndexInterface {
   totalSlides: number;
 }
 
-const songToSlide = (song: SongSchema) => {
-  const orderedVerses: VerseSchema[] = [];
+const songToSlide = (song: SongInterface) => {
+  const orderedVerses: VerseInterface[] = [];
 
-  song.VerseOrder.forEach((verse) => {
-    const verseFound = song.Verses.find(
-      (originalVerse) => originalVerse.Type === verse
+  song.presenterVerseOrder.forEach((verse) => {
+    const verseFound = song.verses.find(
+      (originalVerse) => originalVerse.title === verse.verseTitle
     );
     if (verseFound) orderedVerses.push(verseFound);
   });
 
   const temporalSlides: SliceSchema[] = [];
   orderedVerses.forEach((verse) => {
-    if (verse.Lines.length > 8) {
-      const middle = verse.Lines.length / 2;
+    if (verse.lines.length > 8) {
+      const middle = verse.lines.length / 2;
       const firstSlide: SliceSchema = {
-        Lines: [],
-        SlideNumber: temporalSlides.length,
+        lines: [],
+        slideNumber: temporalSlides.length,
       };
       for (let i = 0; i < middle; i++) {
-        firstSlide.Lines.push(verse.Lines[i]);
+        firstSlide.lines.push(verse.lines[i]);
       }
       temporalSlides.push(firstSlide);
 
       const secondSlide: SliceSchema = {
-        Lines: [],
-        SlideNumber: temporalSlides.length,
+        lines: [],
+        slideNumber: temporalSlides.length,
       };
-      for (let i = middle; i < verse.Lines.length; i++) {
-        secondSlide.Lines.push(verse.Lines[i]);
+      for (let i = middle; i < verse.lines.length; i++) {
+        secondSlide.lines.push(verse.lines[i]);
       }
       temporalSlides.push(secondSlide);
     } else {
       temporalSlides.push({
-        Lines: verse.Lines,
-        SlideNumber: temporalSlides.length,
+        lines: verse.lines,
+        slideNumber: temporalSlides.length,
       });
     }
   });
@@ -87,7 +91,7 @@ const selectedSongSlice = createSlice({
     setSelectedSong: (
       state,
       action: {
-        payload: SongSchema;
+        payload: SongInterface;
         type: string;
       }
     ) => {

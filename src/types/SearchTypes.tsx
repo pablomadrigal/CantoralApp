@@ -1,9 +1,9 @@
-import { SongBookSchema } from "./SongTypes";
+import { SongBookItemInterface } from "./SongTypes";
 
-export interface SearchSchema {
-  _id: string;
+export interface SearchInterface {
+  id: string;
   title: string;
   subTitle: string;
   text: string;
-  songBook: SongBookSchema[];
+  songBook: SongBookItemInterface[];
 }

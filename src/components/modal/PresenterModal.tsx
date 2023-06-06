@@ -86,35 +86,37 @@ const PresenterModal = () => {
         style={{ height: "25%", overflowX: "scroll", padding: "15px" }}
         wrap="nowrap"
       >
-        {slides &&
-          slides.map((slide, index) => (
-            <Grid
-              item
-              key={slide.SlideNumber}
-              onClick={() => dispatch(goToSlide(index))}
-            >
-              <Paper
-                style={{
-                  minWidth: "300px",
-                  height: "100%",
-                  fontSize: "0.75rem",
-                  textAlign: "center",
-                  cursor: "pointer",
-                  border:
-                    index === currentIdx
-                      ? "1px solid black"
-                      : "2px solid black",
-                  margin: "5px",
-                  backgroundColor: index === currentIdx ? "cornsilk" : "white",
-                }}
-                elevation={index === currentIdx ? 5 : 0}
+        {slides
+          ? slides.map((slide, index) => (
+              <Grid
+                item
+                key={slide.slideNumber}
+                onClick={() => dispatch(goToSlide(index))}
               >
-                {slide.Lines.map((item) => {
-                  return <div key={item.LineNumber}>{item.Letter}</div>;
-                })}
-              </Paper>
-            </Grid>
-          ))}
+                <Paper
+                  style={{
+                    minWidth: "300px",
+                    height: "100%",
+                    fontSize: "0.75rem",
+                    textAlign: "center",
+                    cursor: "pointer",
+                    border:
+                      index === currentIdx
+                        ? "1px solid black"
+                        : "2px solid black",
+                    margin: "5px",
+                    backgroundColor:
+                      index === currentIdx ? "cornsilk" : "white",
+                  }}
+                  elevation={index === currentIdx ? 5 : 0}
+                >
+                  {slide.lines.map((item) => {
+                    return <div key={item.lineNumber}>{item.letter}</div>;
+                  })}
+                </Paper>
+              </Grid>
+            ))
+          : null}
       </Grid>
     </Stack>
   );

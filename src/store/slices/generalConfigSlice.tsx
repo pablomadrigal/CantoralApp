@@ -1,6 +1,6 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { CantoralModeConstants } from "../../constants/SettingsConstants";
-import { SearchSchema } from "../../types/SearchTypes";
+import { SearchInterface } from "../../types/SearchTypes";
 
 interface generalConfigStateInferface {
   cantoralMode: string;
@@ -8,7 +8,7 @@ interface generalConfigStateInferface {
   showPresenterModal: boolean;
   selectedSong: string | null;
   selectedSongBook: string;
-  searchText: SearchSchema[] | null;
+  searchText: SearchInterface[] | null;
   textSize: number;
 }
 
@@ -17,7 +17,7 @@ const initialState: generalConfigStateInferface = {
   showChores: false,
   showPresenterModal: false,
   selectedSong: null,
-  selectedSongBook: "CADV2019",
+  selectedSongBook: "2023",
   searchText: null,
   textSize: 0,
 };
@@ -44,7 +44,7 @@ const generalConfigSlice = createSlice({
     setSearchText: (
       state,
       action: {
-        payload: SearchSchema[];
+        payload: SearchInterface[];
         type: string;
       }
     ) => {

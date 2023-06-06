@@ -40,7 +40,7 @@ function Home() {
         </div>
       ) : (
         <>
-          {error && <div>{error}</div>}
+          {error && <div>error</div>}
           {!selectedSong && (
             <Logo fillColor="#395479" height="100%" width="100%" />
           )}

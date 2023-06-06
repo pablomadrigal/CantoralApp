@@ -11,11 +11,11 @@ const TextMode = () => {
 
   useEffect(() => {
     if (selectedSong) {
-      const selectedSongBookNumber = selectedSong.SongBooks.find(
-        (songBook) => songBook.BookName === selectedSongBook
+      const selectedSongBookNumber = selectedSong.songBooks.find(
+        (songBook) => songBook.songBook.name === selectedSongBook
       );
-      if (selectedSongBookNumber?.Number) {
-        setSongBookNumber(selectedSongBookNumber?.Number);
+      if (selectedSongBookNumber?.number) {
+        setSongBookNumber(selectedSongBookNumber?.number);
       }
     } else {
       setSongBookNumber("");
@@ -32,7 +32,7 @@ const TextMode = () => {
       >
         <Paper sx={{ p: 3 }}>
           <Typography variant="h5" align="center">
-            {songBookNumber} - {selectedSong.Title}
+            {songBookNumber} - {selectedSong.title}
           </Typography>
           <div
             style={{
@@ -42,27 +42,28 @@ const TextMode = () => {
               color: "#57585b",
             }}
           >
-            {selectedSong.Authors.map((author) => (
-              <li key={author.Author}>{author.Author}</li>
+            {selectedSong.authors.map((author) => (
+              <li key={author.author.id}>
+                {author.author.name} {author.author.lastName}
+              </li>
             ))}
           </div>
           <br />
-          {selectedSong.Verses.map((verse) => {
-            if (!verse.OnlyPresenter)
-              return (
-                <Typography key={verse.Type} component="div" textAlign="left">
-                  <br />
-                  {verse.Type.includes("E") && (
-                    <span style={{ fontWeight: "bold" }}>Estribillo</span>
-                  )}
-                  {verse.Type.includes("F") && (
-                    <span style={{ fontWeight: "bold" }}>Final</span>
-                  )}
-                  {verse.Lines.map((line) => (
-                    <div key={line.LineNumber}>{line.Letter}</div>
-                  ))}
-                </Typography>
-              );
+          {selectedSong.verses.map((verse) => {
+            return (
+              <Typography key={verse.title} component="div" textAlign="left">
+                <br />
+                {verse.type.includes("E") && (
+                  <span style={{ fontWeight: "bold" }}>Estribillo</span>
+                )}
+                {verse.type.includes("F") && (
+                  <span style={{ fontWeight: "bold" }}>Final</span>
+                )}
+                {verse.lines.map((line) => (
+                  <div key={line.lineNumber}>{line.letter}</div>
+                ))}
+              </Typography>
+            );
           })}
         </Paper>
       </Box>

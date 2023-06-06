@@ -37,7 +37,7 @@ const AutocompleteSongBook: FC<autoCompleteSongBookProps> = ({
     if (value) {
       dispatch(setSelectedSongBook(value.id));
       setValue(value);
-      onSelectedSong && onSelectedSong(value.id);
+      onSelectedSong ? onSelectedSong(value.id) : null;
     }
   };
   return (
@@ -58,9 +58,9 @@ const AutocompleteSongBook: FC<autoCompleteSongBookProps> = ({
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const songBooks = [
-  { id: "CADV2019", label: "Cantoral 2019" },
-  { id: "Jesed2016", label: "Cantoral 2016" },
-  { id: "CADV2011", label: "Cantoral 2011" },
+  { id: "2009", label: "2009" },
+  { id: "2016", label: "2016" },
+  { id: "2023", label: "2023" },
 ];
 
 export default AutocompleteSongBook;

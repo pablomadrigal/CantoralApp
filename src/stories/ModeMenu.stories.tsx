@@ -5,7 +5,6 @@ import store from "../store/store";
 export default {
   title: "Components/NavBar/Menus/ModeMenu",
   component: ModeMenu,
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ["autodocs"],
   argTypes: {},
 };

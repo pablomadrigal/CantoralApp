@@ -51,11 +51,11 @@ const PresentationMode = () => {
 
   useEffect(() => {
     if (selectedSong) {
-      const selectedSongBookNumber = selectedSong.SongBooks.find(
-        (songBook) => songBook.BookName === selectedSongBook
+      const selectedSongBookNumber = selectedSong.songBooks.find(
+        (songBook) => songBook.songBookName === selectedSongBook
       );
-      if (selectedSongBookNumber?.Number) {
-        setSongBookNumber(selectedSongBookNumber?.Number);
+      if (selectedSongBookNumber?.number) {
+        setSongBookNumber(selectedSongBookNumber?.number);
       }
     } else {
       setSongBookNumber("");
@@ -88,18 +88,19 @@ const PresentationMode = () => {
                 height: "69vh",
               }}
             >
-              {slides[currentIdx] &&
-                slides[currentIdx].Lines.map((item) => {
-                  return (
-                    <div
-                      key={`${item.Letter.substring(0, 5)} - ${
-                        item.LineNumber
-                      }`}
-                    >
-                      {item.Letter}
-                    </div>
-                  );
-                })}
+              {slides[currentIdx]
+                ? slides[currentIdx].lines.map((item) => {
+                    return (
+                      <div
+                        key={`${item.letter.substring(0, 5)} - ${
+                          item.lineNumber
+                        }`}
+                      >
+                        {item.letter}
+                      </div>
+                    );
+                  })
+                : null}
             </Box>
             <Grid
               container
@@ -122,7 +123,7 @@ const PresentationMode = () => {
                     WebkitBoxOrient: "vertical",
                   }}
                 >
-                  {songBookNumber} {selectedSong.Title}
+                  {songBookNumber} {selectedSong.title}
                   <br />
                 </div>
               </Grid>
@@ -138,7 +139,7 @@ const PresentationMode = () => {
                   {slides?.map((slide, idx) => {
                     return (
                       <StyledDot
-                        key={slide.SlideNumber}
+                        key={slide.slideNumber}
                         selected={idx === currentIdx}
                         onClick={() => dispatch(goToSlide(idx))}
                       />
