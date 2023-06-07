@@ -1,6 +1,6 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { setSelectedSong } from "./selectedSongSlice";
-import { SongSchema } from "../../types/SongTypes";
+import { SongInterface } from "../../types/SongTypes";
 
 interface generalConfigStateInferface {
   showAudioControl: boolean;
@@ -28,6 +28,9 @@ const musicSlice = createSlice({
   reducers: {
     toggleAudioControl: (state) => {
       state.showAudioControl = !state.showAudioControl;
+    },
+    hideAudioControl: (state) => {
+      state.showAudioControl = false;
     },
     setMusicURL: (
       state,
@@ -84,11 +87,11 @@ const musicSlice = createSlice({
       (
         state,
         action: {
-          payload: SongSchema;
+          payload: SongInterface;
           type: string;
         }
       ) => {
-        state.musicURL = action.payload.MusicURL || null;
+        state.musicURL = action.payload.musicURL || null;
       }
     );
   },
@@ -96,6 +99,7 @@ const musicSlice = createSlice({
 
 export const {
   toggleAudioControl,
+  hideAudioControl,
   setMusicURL,
   setPlayPause,
   setCurrentTime,

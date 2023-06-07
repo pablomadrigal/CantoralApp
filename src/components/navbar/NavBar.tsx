@@ -1,4 +1,4 @@
-import { AppBar, IconButton, Toolbar } from "@mui/material";
+import { AppBar, IconButton, Toolbar, Tooltip } from "@mui/material";
 import CoPresentIcon from "@mui/icons-material/CoPresent";
 import ModeMenu from "../menus/ModeMenu";
 import FullScreenButton from "./FullScreenButton";
@@ -27,17 +27,19 @@ const NavBar = () => {
             <LetterSizeMenu />
           )}
           {cantoralMode === CantoralModeConstants.PRESENTATION && (
-            <IconButton
-              size="large"
-              aria-label="menu for changing mode"
-              aria-controls="menu-mode-appbar"
-              aria-haspopup="true"
-              color="inherit"
-              onClick={() => dispatch(setShowPresenterModal())}
-              sx={[{ "&:focus": { outline: "none" } }]}
-            >
-              <CoPresentIcon />
-            </IconButton>
+            <Tooltip title="Abrir modo presentador">
+              <IconButton
+                size="large"
+                aria-label="menu for changing mode"
+                aria-controls="menu-mode-appbar"
+                aria-haspopup="true"
+                color="inherit"
+                onClick={() => dispatch(setShowPresenterModal())}
+                sx={[{ "&:focus": { outline: "none" } }]}
+              >
+                <CoPresentIcon />
+              </IconButton>
+            </Tooltip>
           )}
           <ModeMenu />
           <MusicButton />

@@ -1,14 +1,23 @@
 import { ReactElement } from "react";
 import { Button, Grid, Paper, Stack } from "@mui/material";
-import VerticalAlignTopIcon from "@mui/icons-material/VerticalAlignTop";
-import VerticalAlignCenterIcon from "@mui/icons-material/VerticalAlignCenter";
-import VerticalAlignBottomIcon from "@mui/icons-material/VerticalAlignBottom";
-import TextIncreaseIcon from "@mui/icons-material/TextIncrease";
-import TextDecreaseIcon from "@mui/icons-material/TextDecrease";
+import {
+  VerticalAlignTop as VerticalAlignTopIcon,
+  VerticalAlignCenter as VerticalAlignCenterIcon,
+  VerticalAlignBottom as VerticalAlignBottomIcon,
+  TextIncrease as TextIncreaseIcon,
+  TextDecrease as TextDecreaseIcon,
+  DesktopAccessDisabled as DesktopAccessDisabledIcon,
+  DesktopMac as DesktopMacIcon,
+  Monitor as MonitorIcon,
+} from "@mui/icons-material";
 import { useDispatch, useSelector } from "../../hooks/useRedux";
 import {
+  screenModeSelector,
+  setBlackMode,
   setLessTextSize,
   setMoreTextSize,
+  setNormalMode,
+  setWhiteMode,
 } from "../../store/slices/generalConfigSlice";
 import PresentationMode from "../modes/presentationMode/PresentationMode";
 import {
@@ -20,6 +29,7 @@ import {
   slidesSelector,
 } from "../../store/slices/selectedSongSlice";
 import AutocompleteSong from "../formInputs/AutocompleteSong";
+import { ScreenModeConstants } from "../../constants/SettingsConstants";
 
 interface menuButtonsInterface {
   id: number;
@@ -31,6 +41,19 @@ const PresenterModal = () => {
   const dispatch = useDispatch();
   const slides = useSelector(slidesSelector);
   const currentIdx = useSelector(currentIdxSelector);
+  const screenMode = useSelector(screenModeSelector);
+
+  const setScreen = (white: boolean) => {
+    if (screenMode === ScreenModeConstants.NORMAL) {
+      if (white) {
+        dispatch(setWhiteMode());
+      } else {
+        dispatch(setBlackMode());
+      }
+    } else {
+      dispatch(setNormalMode());
+    }
+  };
 
   const menuButtons: menuButtonsInterface[] = [
     {
@@ -58,6 +81,26 @@ const PresenterModal = () => {
       icon: <TextDecreaseIcon />,
       onClick: () => dispatch(setLessTextSize()),
     },
+    {
+      id: 6,
+      icon:
+        screenMode === ScreenModeConstants.NORMAL ? (
+          <DesktopAccessDisabledIcon />
+        ) : (
+          <MonitorIcon />
+        ),
+      onClick: () => setScreen(true),
+    },
+    {
+      id: 7,
+      icon:
+        screenMode === ScreenModeConstants.NORMAL ? (
+          <DesktopMacIcon />
+        ) : (
+          <MonitorIcon />
+        ),
+      onClick: () => setScreen(false),
+    },
   ];
 
   return (
@@ -77,13 +120,27 @@ const PresenterModal = () => {
           <AutocompleteSong />
         </Grid>
       </Grid>
-      <div style={{ maxWidth: "1300px" }}>
-        <PresentationMode />
+      <div
+        style={{
+          maxWidth: "1300px",
+          backgroundColor: "white",
+          marginLeft: "15px",
+          marginRight: "15px",
+        }}
+      >
+        <PresentationMode isPresenter />
       </div>
       <Grid
         container
         spacing={2}
-        style={{ height: "25%", overflowX: "scroll", padding: "15px" }}
+        style={{
+          height: "25%",
+          maxWidth: "1300px",
+          overflowX: "scroll",
+          padding: "15px",
+          marginLeft: "15px",
+          marginRight: "15px",
+        }}
         wrap="nowrap"
       >
         {slides

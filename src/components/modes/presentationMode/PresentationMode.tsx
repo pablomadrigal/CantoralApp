@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { Box, Button, Grid, styled } from "@mui/material";
 import { useDispatch, useSelector } from "../../../hooks/useRedux";
 import {
@@ -24,6 +24,10 @@ type StyledDotProps = {
   selected: boolean;
 };
 
+export interface PresentationModeProps {
+  isPresenter?: boolean;
+}
+
 const StyledDot = styled("button")<StyledDotProps>(({ selected }) => ({
   display: "flex",
   alignItems: "center",
@@ -39,7 +43,7 @@ const StyledDot = styled("button")<StyledDotProps>(({ selected }) => ({
   height: "0.5rem",
 }));
 
-const PresentationMode = () => {
+const PresentationMode: FC<PresentationModeProps> = ({ isPresenter }) => {
   const selectedSong = useSelector(selectedSongSelector);
   const selectedSongBook = useSelector(selectedSongBookSelector);
   const slides = useSelector(slidesSelector);
@@ -79,12 +83,12 @@ const PresentationMode = () => {
             <Box
               sx={{
                 display: "flex",
-                fontSize: 40 + textSize,
+                fontSize: isPresenter ? 40 : textSize + 40,
                 textAlign: "center",
                 flexDirection: "column",
                 margin: 3,
-                justifyContent: "center",
-                alignItems: alignText,
+                justifyContent: isPresenter ? "center" : alignText,
+                alignItems: "center",
                 height: "69vh",
               }}
             >

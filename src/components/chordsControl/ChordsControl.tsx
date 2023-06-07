@@ -1,12 +1,15 @@
-import { FC, useState } from "react";
-import { Button, Stack, Typography } from "@mui/material";
+import { FC, useState, useEffect } from "react";
+import { IconButton, Stack, Typography } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 export interface ChordsControlProps {
   capo: number;
   tono: string;
+  onchange: (newCapo: number, newTono: string) => void;
 }
 
-const ChordsControl: FC<ChordsControlProps> = ({ capo, tono }) => {
+const ChordsControl: FC<ChordsControlProps> = ({ capo, tono, onchange }) => {
   const [currentTono, setCurrentTono] = useState(tono);
   const [currentCapo, setCurrentCapo] = useState(capo);
 
@@ -23,6 +26,10 @@ const ChordsControl: FC<ChordsControlProps> = ({ capo, tono }) => {
       modificaTonoCancion({ tonoCancion: currentTono, modificador: modifier })
     );
   };
+
+  useEffect(() => {
+    if (onchange) onchange(currentCapo, currentTono);
+  }, [currentCapo, currentTono]);
 
   const getTonosPosiblesCacion = (tonoCancion: string) => {
     //Crear listados de tonos
@@ -113,21 +120,26 @@ const ChordsControl: FC<ChordsControlProps> = ({ capo, tono }) => {
   };
 
   return (
-    <>
-      <Stack direction="row" spacing={2}>
-        <Typography>Esta en capo {currentCapo}</Typography>
-        <Button onClick={handleLessCapo}>-</Button>
-        <Button onClick={handleMoreCapo}>+</Button>
-      </Stack>
-
-      <Stack direction="row" spacing={2}>
-        <Typography>Esta en tono {currentTono}</Typography>
-        <Button onClick={() => handleChangeChord(-2)}>-1</Button>
-        <Button onClick={() => handleChangeChord(-1)}>-1/2</Button>
-        <Button onClick={() => handleChangeChord(1)}>+1/2</Button>
-        <Button onClick={() => handleChangeChord(2)}>+1</Button>
-      </Stack>
-    </>
+    <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 5 }}>
+      <IconButton onClick={handleLessCapo}>
+        <RemoveCircleIcon />
+      </IconButton>
+      <IconButton onClick={handleMoreCapo}>
+        <AddCircleIcon />
+      </IconButton>
+      <Typography>
+        Esta en capo <b>{currentCapo}</b>
+      </Typography>
+      <Typography>
+        Esta en tono <b>{currentTono}</b>
+      </Typography>
+      <IconButton onClick={() => handleChangeChord(-1)}>
+        <RemoveCircleIcon />
+      </IconButton>
+      <IconButton onClick={() => handleChangeChord(1)}>
+        <AddCircleIcon />
+      </IconButton>
+    </Stack>
   );
 };
 
