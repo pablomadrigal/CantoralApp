@@ -9,6 +9,7 @@ import {
 import { cantoralToHTML } from "../../../utils/parserUtils";
 import { CantoralModeConstants } from "../../../constants/SettingsConstants";
 import ChordsControl from "../../chordsControl/ChordsControl";
+import "./ChordView.css";
 
 const TextMode = () => {
   const selectedSong = useSelector(selectedSongSelector);

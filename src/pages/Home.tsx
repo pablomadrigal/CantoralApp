@@ -17,6 +17,7 @@ import {
 } from "../store/slices/generalConfigSlice";
 import { selectedSongSelector } from "../store/slices/selectedSongSlice";
 import PresenterModal from "../components/modal/PresenterModal";
+import Footer from "../components/footer/Footer";
 
 function Home() {
   const { error, loading } = useGetSongs();
@@ -38,7 +39,10 @@ function Home() {
           <>
             {error && <div>error</div>}
             {!selectedSong && (
-              <Logo fillColor="#395479" height="100%" width="100%" />
+              <>
+                <Logo fillColor="#395479" height="100%" width="100%" />
+                <Footer />
+              </>
             )}
             {cantoralMode === CantoralModeConstants.PRESENTATION ? (
               <PresentationMode />

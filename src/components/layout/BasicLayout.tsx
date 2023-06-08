@@ -30,11 +30,13 @@ const Main = styled("main")<StyledMainProps>(({ musicPlayer, theme }) => ({
   }),
 }));
 
-const BasicLayout: FC<BasicLayoutProps> = ({ children, loading = false }) => {
+const BasicLayout: FC<BasicLayoutProps> = ({ children, loading = true }) => {
   const showAudioControl = useSelector(showAudioControlSelector);
 
   return (
     <Box sx={{ display: "flex", width: "100%" }}>
+      <CssBaseline />
+      <NavBar />
       {loading ? (
         <div
           style={{
@@ -51,8 +53,6 @@ const BasicLayout: FC<BasicLayoutProps> = ({ children, loading = false }) => {
         </div>
       ) : (
         <>
-          <CssBaseline />
-          <NavBar />
           <Main musicPlayer={showAudioControl}>{children}</Main>
           {showAudioControl && <MusicControl />}
         </>
