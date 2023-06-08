@@ -6,7 +6,7 @@ import {
   Stack,
   styled,
 } from "@mui/material";
-import { SearchSchema } from "../../types/SearchTypes";
+import { SearchInterface } from "../../types/SearchTypes";
 import { useDispatch, useSelector } from "../../hooks/useRedux";
 import {
   searchTextSelector,
@@ -33,28 +33,28 @@ const AutocompleteSong = forwardRef<HTMLInputElement, autoCompleteSongProps>(
 
     const filterOptions = createFilterOptions({
       matchFrom: "any",
-      stringify: (option: SearchSchema) => {
+      stringify: (option: SearchInterface) => {
         const selectedSongBookNumber = option.songBook.find(
-          (songBook) => songBook.BookName === selectedSongBook
+          (songBook) => songBook.songBook.name === selectedSongBook
         );
-        if (selectedSongBookNumber?.Number)
-          return `${selectedSongBookNumber?.Number} ${option.title} ${option.subTitle} ${option.text}`;
+        if (selectedSongBookNumber?.number)
+          return `${selectedSongBookNumber?.number} ${option.title} ${option.subTitle} ${option.text}`;
         else return option.title + option.subTitle + option.text;
       },
     });
 
     const handleSelectSong = (
       _event: SyntheticEvent<Element, Event>,
-      value: SearchSchema | null
+      value: SearchInterface | null
     ) => {
       if (value) {
-        dispatch(setSelectedSongId(value._id));
+        dispatch(setSelectedSongId(value.id));
         void data_idb.then((db) => {
-          void db.get("songs", value._id).then((song) => {
+          void db.get("songs", value.id).then((song) => {
             if (song) dispatch(setSelectedSong(song));
           });
         });
-        if (onSelectedSong) onSelectedSong(value._id);
+        if (onSelectedSong) onSelectedSong(value.id);
       }
     };
 
@@ -70,17 +70,16 @@ const AutocompleteSong = forwardRef<HTMLInputElement, autoCompleteSongProps>(
         onChange={handleSelectSong}
         getOptionLabel={(option) => {
           const selectedSongBookNumber = option.songBook.find(
-            (songBook: { BookName: string }) =>
-              songBook.BookName === selectedSongBook
+            (songBook) => songBook.songBookName === selectedSongBook
           );
-          if (selectedSongBookNumber?.Number)
-            return `${selectedSongBookNumber?.Number} - ${option.title}`;
+          if (selectedSongBookNumber?.number)
+            return `${selectedSongBookNumber?.number} - ${option.title}`;
           else return option.title;
         }}
         renderOption={(props, option, { inputValue }) => {
           const searchValue = inputValue.toUpperCase();
           const selectedSongBookNumber = option.songBook.find(
-            (songBook) => songBook.BookName === selectedSongBook
+            (songBook) => songBook.songBookName === selectedSongBook
           );
           const indexSelectedInText = option.text.indexOf(searchValue);
           const textLength = searchValue.length < 24 ? searchValue.length : 24;
@@ -89,7 +88,7 @@ const AutocompleteSong = forwardRef<HTMLInputElement, autoCompleteSongProps>(
               <Stack>
                 <div>
                   {selectedSongBookNumber &&
-                    `${selectedSongBookNumber?.Number} -`}{" "}
+                    `${selectedSongBookNumber?.number} -`}{" "}
                   {option.title}
                 </div>
                 {indexSelectedInText > -1 && !!inputValue && (

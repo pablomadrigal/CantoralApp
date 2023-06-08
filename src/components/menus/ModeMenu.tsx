@@ -1,10 +1,11 @@
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import { IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
 import { AutoAwesomeMosaic as AutoAwesomeMosaicIcon } from "@mui/icons-material";
 import { useState } from "react";
 import { useDispatch } from "../../hooks/useRedux";
 import {
   setPresentationMode,
   setTextMode,
+  setChordsMode,
 } from "../../store/slices/generalConfigSlice";
 
 const ModeMenu = () => {
@@ -32,25 +33,32 @@ const ModeMenu = () => {
     setAnchorEl(null);
   };
 
+  const handleChoresMode = () => {
+    dispatch(setChordsMode());
+    setAnchorEl(null);
+  };
+
   return (
     <>
-      <IconButton
-        size="large"
-        aria-label="menu for changing mode"
-        aria-controls="menu-mode-appbar"
-        aria-haspopup="true"
-        color="inherit"
-        onClick={handleClick}
-        sx={[
-          {
-            "&:focus": {
-              outline: "none",
+      <Tooltip title="Cambiar el modo">
+        <IconButton
+          size="large"
+          aria-label="menu for changing mode"
+          aria-controls="menu-mode-appbar"
+          aria-haspopup="true"
+          color="inherit"
+          onClick={handleClick}
+          sx={[
+            {
+              "&:focus": {
+                outline: "none",
+              },
             },
-          },
-        ]}
-      >
-        <AutoAwesomeMosaicIcon />
-      </IconButton>
+          ]}
+        >
+          <AutoAwesomeMosaicIcon />
+        </IconButton>
+      </Tooltip>
       <Menu
         id="menu-mode"
         anchorEl={anchorEl}
@@ -62,6 +70,7 @@ const ModeMenu = () => {
       >
         <MenuItem onClick={handleTextMode}>Texto Completo</MenuItem>
         <MenuItem onClick={handlePresentationMode}>Presentación</MenuItem>
+        <MenuItem onClick={handleChoresMode}>Acordes</MenuItem>
       </Menu>
     </>
   );

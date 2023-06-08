@@ -1,23 +1,29 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { CantoralModeConstants } from "../../constants/SettingsConstants";
-import { SearchSchema } from "../../types/SearchTypes";
+import {
+  CantoralModeConstants,
+  ScreenModeConstants,
+} from "../../constants/SettingsConstants";
+import { SearchInterface } from "../../types/SearchTypes";
+import { nullableStringCompare } from "../../utils/stringUtils";
 
 interface generalConfigStateInferface {
   cantoralMode: string;
+  screenMode: string;
   showChores: boolean;
   showPresenterModal: boolean;
   selectedSong: string | null;
   selectedSongBook: string;
-  searchText: SearchSchema[] | null;
+  searchText: SearchInterface[] | null;
   textSize: number;
 }
 
 const initialState: generalConfigStateInferface = {
   cantoralMode: CantoralModeConstants.TEXT,
+  screenMode: ScreenModeConstants.NORMAL,
   showChores: false,
   showPresenterModal: false,
   selectedSong: null,
-  selectedSongBook: "CADV2019",
+  selectedSongBook: "2023",
   searchText: null,
   textSize: 0,
 };
@@ -32,8 +38,21 @@ const generalConfigSlice = createSlice({
     setPresentationMode: (state) => {
       state.cantoralMode = CantoralModeConstants.PRESENTATION;
     },
+    setChordsMode: (state) => {
+      state.cantoralMode = CantoralModeConstants.CHORDS;
+    },
+    setBlackMode: (state) => {
+      state.screenMode = ScreenModeConstants.BLACK;
+    },
+    setWhiteMode: (state) => {
+      state.screenMode = ScreenModeConstants.WHITE;
+    },
+    setNormalMode: (state) => {
+      state.screenMode = ScreenModeConstants.NORMAL;
+    },
     setShowPresenterModal: (state) => {
       state.showPresenterModal = !state.showPresenterModal;
+      state.screenMode = ScreenModeConstants.NORMAL;
     },
     setShowChores: (state) => {
       state.showChores = true;
@@ -44,11 +63,21 @@ const generalConfigSlice = createSlice({
     setSearchText: (
       state,
       action: {
-        payload: SearchSchema[];
+        payload: SearchInterface[];
         type: string;
       }
     ) => {
-      state.searchText = action.payload;
+      state.searchText =
+        action.payload?.sort((a, b) =>
+          nullableStringCompare(
+            a.songBook.find(
+              (book) => book.songBookName === state.selectedSongBook
+            )?.number,
+            b.songBook.find(
+              (book) => book.songBookName === state.selectedSongBook
+            )?.number
+          )
+        ) || null;
     },
     setSelectedSongId: (
       state,
@@ -70,6 +99,15 @@ const generalConfigSlice = createSlice({
       }
     ) => {
       state.selectedSongBook = action.payload;
+      state.searchText =
+        state.searchText?.sort((a, b) =>
+          nullableStringCompare(
+            a.songBook.find((book) => book.songBookName === action.payload)
+              ?.number,
+            b.songBook.find((book) => book.songBookName === action.payload)
+              ?.number
+          )
+        ) || null;
     },
     setLessTextSize: (state) => {
       state.textSize = state.textSize - 1;
@@ -85,6 +123,10 @@ export const {
   setHideChores,
   setTextMode,
   setPresentationMode,
+  setChordsMode,
+  setBlackMode,
+  setWhiteMode,
+  setNormalMode,
   setShowPresenterModal,
   setSearchText,
   setSelectedSongId,
@@ -105,6 +147,11 @@ export const textSizeSelector = createSelector(
 export const cantoralModeSelector = createSelector(
   [generalConfigState],
   (state: generalConfigStateInferface) => state.cantoralMode
+);
+
+export const screenModeSelector = createSelector(
+  [generalConfigState],
+  (state: generalConfigStateInferface) => state.screenMode
 );
 
 export const showPresenterModalSelector = createSelector(

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { data_idb } from "../store/idb";
 import { fetchAllSongs } from "../services/songServices";
-import { SongSchema } from "../types/SongTypes";
+import { SongInterface } from "../types/SongTypes";
 import { useDispatch } from "./useRedux";
-import { SearchSchema } from "../types/SearchTypes";
+import { SearchInterface } from "../types/SearchTypes";
 import { setSearchText } from "../store/slices/generalConfigSlice";
 
 function useGetSongs() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<SongSchema[] | null>(null);
+  const [data, setData] = useState<SongInterface[] | null>(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,31 +45,36 @@ function useGetSongs() {
       const db = await data_idb;
       const songArray = await db.getAll("songs");
       setData(songArray);
-      const searchSongArray: SearchSchema[] = songArray.map((song) => {
-        const songText = song.Verses.map((verse) => {
-          return verse.Lines.map((line) => line.Letter)
-            .join(" ")
-            .toUpperCase()
-            .replace(/_/g, " ")
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .replace(/[^a-zA-Z0-9 ]/g, "");
-        }).join(" ");
-        const subTitleText = song.Subtitles.concat(song.BasedOn)
+      const searchSongArray: SearchInterface[] = songArray.map((song) => {
+        const songText = song.verses
+          .map((verse) => {
+            return verse.lines
+              .map((line) => line.letter)
+              .join(" ")
+              .toUpperCase()
+              .replace(/_/g, " ")
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .replace(/[^a-zA-Z0-9 ]/g, "");
+          })
+          .join(" ");
+        const subTitleText = song.subtitles
+          .concat(song.basedOn)
           .join(" ")
           .toUpperCase()
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .replace(/[^a-zA-Z0-9 ]/g, "");
         return {
-          _id: song._id,
-          title: song.Title.toUpperCase()
+          id: song.id,
+          title: song.title
+            .toUpperCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")
             .replace(/[^a-zA-Z0-9 ]/g, ""),
           subTitle: subTitleText,
           text: songText,
-          songBook: song.SongBooks,
+          songBook: song.songBooks,
         };
       });
       dispatch(setSearchText(searchSongArray));

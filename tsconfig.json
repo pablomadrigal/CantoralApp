@@ -20,6 +20,6 @@
       "node"
     ]
   },
-  "include": ["src"],
+  "include": ["src", "src/stories/.stories copy.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

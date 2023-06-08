@@ -1,4 +1,4 @@
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import { IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
 import {
   TextFields as TextFieldsIcon,
   AddCircleOutline as AddCircleOutlineIcon,
@@ -45,17 +45,22 @@ const LetterSizeMenu = () => {
 
   return (
     <>
-      <IconButton
-        size="large"
-        aria-label="menu for changing mode"
-        aria-controls="menu-mode-appbar"
-        aria-haspopup="true"
-        color="inherit"
-        onClick={handleClick}
-        sx={[{ "&:focus": { outline: "none" } }]}
-      >
-        <TextFieldsIcon />
-      </IconButton>
+      <Tooltip title="Cambiar tamaño de letra">
+        <span>
+          <IconButton
+            size="large"
+            aria-label="menu for changing mode"
+            aria-controls="menu-mode-appbar"
+            aria-haspopup="true"
+            color="inherit"
+            onClick={handleClick}
+            sx={[{ "&:focus": { outline: "none" } }]}
+          >
+            <TextFieldsIcon />
+          </IconButton>
+        </span>
+      </Tooltip>
+
       <Menu
         id="menu-mode"
         anchorEl={anchorEl}

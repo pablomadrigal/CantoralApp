@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { Box, Button, Grid, styled } from "@mui/material";
 import { useDispatch, useSelector } from "../../../hooks/useRedux";
 import {
@@ -24,6 +24,10 @@ type StyledDotProps = {
   selected: boolean;
 };
 
+export interface PresentationModeProps {
+  isPresenter?: boolean;
+}
+
 const StyledDot = styled("button")<StyledDotProps>(({ selected }) => ({
   display: "flex",
   alignItems: "center",
@@ -39,7 +43,7 @@ const StyledDot = styled("button")<StyledDotProps>(({ selected }) => ({
   height: "0.5rem",
 }));
 
-const PresentationMode = () => {
+const PresentationMode: FC<PresentationModeProps> = ({ isPresenter }) => {
   const selectedSong = useSelector(selectedSongSelector);
   const selectedSongBook = useSelector(selectedSongBookSelector);
   const slides = useSelector(slidesSelector);
@@ -51,11 +55,11 @@ const PresentationMode = () => {
 
   useEffect(() => {
     if (selectedSong) {
-      const selectedSongBookNumber = selectedSong.SongBooks.find(
-        (songBook) => songBook.BookName === selectedSongBook
+      const selectedSongBookNumber = selectedSong.songBooks.find(
+        (songBook) => songBook.songBookName === selectedSongBook
       );
-      if (selectedSongBookNumber?.Number) {
-        setSongBookNumber(selectedSongBookNumber?.Number);
+      if (selectedSongBookNumber?.number) {
+        setSongBookNumber(selectedSongBookNumber?.number);
       }
     } else {
       setSongBookNumber("");
@@ -79,27 +83,28 @@ const PresentationMode = () => {
             <Box
               sx={{
                 display: "flex",
-                fontSize: 40 + textSize,
+                fontSize: isPresenter ? 40 : textSize + 40,
                 textAlign: "center",
                 flexDirection: "column",
                 margin: 3,
-                justifyContent: "center",
-                alignItems: alignText,
+                justifyContent: isPresenter ? "center" : alignText,
+                alignItems: "center",
                 height: "69vh",
               }}
             >
-              {slides[currentIdx] &&
-                slides[currentIdx].Lines.map((item) => {
-                  return (
-                    <div
-                      key={`${item.Letter.substring(0, 5)} - ${
-                        item.LineNumber
-                      }`}
-                    >
-                      {item.Letter}
-                    </div>
-                  );
-                })}
+              {slides[currentIdx]
+                ? slides[currentIdx].lines.map((item) => {
+                    return (
+                      <div
+                        key={`${item.letter.substring(0, 5)} - ${
+                          item.lineNumber
+                        }`}
+                      >
+                        {item.letter}
+                      </div>
+                    );
+                  })
+                : null}
             </Box>
             <Grid
               container
@@ -122,7 +127,7 @@ const PresentationMode = () => {
                     WebkitBoxOrient: "vertical",
                   }}
                 >
-                  {songBookNumber} {selectedSong.Title}
+                  {songBookNumber} {selectedSong.title}
                   <br />
                 </div>
               </Grid>
@@ -138,7 +143,7 @@ const PresentationMode = () => {
                   {slides?.map((slide, idx) => {
                     return (
                       <StyledDot
-                        key={slide.SlideNumber}
+                        key={slide.slideNumber}
                         selected={idx === currentIdx}
                         onClick={() => dispatch(goToSlide(idx))}
                       />

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import {
   Fullscreen as FullscreenIcon,
   FullscreenExit as FullscreenExitIcon,
@@ -21,23 +21,25 @@ const FullScreenButton = () => {
 
   return (
     <>
-      <IconButton
-        size="large"
-        aria-label="toogle fullscreen"
-        aria-controls="toogle-fullscreen"
-        aria-haspopup="false"
-        color="inherit"
-        sx={[
-          {
-            "&:focus": {
-              outline: "none",
+      <Tooltip title="Pantalla Completa">
+        <IconButton
+          size="large"
+          aria-label="toogle fullscreen"
+          aria-controls="toogle-fullscreen"
+          aria-haspopup="false"
+          color="inherit"
+          sx={[
+            {
+              "&:focus": {
+                outline: "none",
+              },
             },
-          },
-        ]}
-        onClick={onFullScreen ? handleRemoveFullScreen : handleSetFullScreen}
-      >
-        {onFullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
-      </IconButton>
+          ]}
+          onClick={onFullScreen ? handleRemoveFullScreen : handleSetFullScreen}
+        >
+          {onFullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+        </IconButton>
+      </Tooltip>
     </>
   );
 };

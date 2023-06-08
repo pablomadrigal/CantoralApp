@@ -3,6 +3,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import { Headset as HeadsetIcon } from "@mui/icons-material";
 import { useDispatch, useSelector } from "../../hooks/useRedux";
 import {
+  hideAudioControl,
   musicURLSelector,
   playMusicSelector,
   seekTimeSelector,
@@ -46,6 +47,7 @@ const MusicButton = () => {
   const onEventListener = (event: SyntheticEvent<HTMLAudioElement>) => {
     if (event.type === "error") {
       setError(true);
+      dispatch(hideAudioControl());
     } else {
       setError(false);
       if (event.type === "loadeddata" && audioElement.current) {

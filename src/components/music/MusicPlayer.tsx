@@ -14,7 +14,7 @@ const MusicPlayer = ({ url }: MusicPlayerProps) => {
       if (audioElement.current.paused) {
         void audioElement.current.play();
       } else {
-        void audioElement.current.pause();
+        audioElement.current.pause();
       }
     }
   };
