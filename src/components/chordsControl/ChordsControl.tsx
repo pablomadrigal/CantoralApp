@@ -120,7 +120,12 @@ const ChordsControl: FC<ChordsControlProps> = ({ capo, tono, onchange }) => {
   };
 
   return (
-    <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 5 }}>
+    <Stack
+      direction="row"
+      spacing={2}
+      justifyContent="center"
+      sx={{ py: 3, width: "100%", position: "fixed", backgroundColor: "#fff" }}
+    >
       <IconButton onClick={handleLessCapo}>
         <RemoveCircleIcon />
       </IconButton>
