@@ -1,262 +1,386 @@
+import { SongInterface } from "../types/SongTypes";
+
 export const autocompleteSongDemoData = [
   {
-    _id: "63981a335e80dca2554345d0",
-    title: "LA ESPADA DEL ESPIRITU",
-    subTitle: "",
-    text: "DIOS SE HA FORJADO CON NOSOTROS UNA ESPADA Y NOS TOMA EN SU DERECHA PODEROSA SE LEVANTA  EL SENOR A HACER LA GUERRA CON JUSTICIA AL ENEMIGO VENCERA Y CON SU FUEGO ENARDECIENDO NUESTRO PECHO SUS GUERREROS AVANZAMOS JUBILOSOS A ABATIR CON MANO FUERTE Y TENSO BRAZO A LAS HUESTES DEL MAL DEL ENEMIGO MARCHANDO AL FRENTE DE NOSOTROS ESTA UN BRAVO CAPITAN DE GRAN PODER Y DE GRAN FUERZA JESUCRISTO HIJO DE DIOS LEON DE JUDA A EL SEGUIMOS Y EN SU NOMBRE COMBATIMOS Y REVESTIDOS HEMOS SIDO DE ARMAS NOBLES DE LAS ARMAS DE LA LUZ DEL SENOR MISMO ARMADURA  INVENCIBLE ESCUDO FUERTE Y LA ESPADA SIEMPRE FIEL DE SU PALABRA NO NOS DOMINA NUNCA EL MIEDO A LA DERROTA LA VICTORIA ESTA GANADA EN JESUCRISTO ABATIDOS YA LA MUERTE  Y EL PECADO EL SENOR ES VENCEDOR A  EL LA GLORIA  DIGNO EL SENOR DE LOS EJERCITOS FUERTE EL SENOR OMNIPOTENTE GLORIA AL SENOR PODEROSO HONOR AL SENOR NUESTRO DIOS  2 HONOR AL SENOR NUESTRO DIOS",
+    id: '647e3eb90e09bb332940a4cd',
+    title: 'LA ESPADA DEL ESPIRITU',
+    subTitle: '',
+    text: 'DIOS SE HA FORJADO CON NOSOTROS UNA ESPADA Y NOS TOMA EN SU DERECHA PODEROSA SE LEVANTA  EL SENOR A HACER LA GUERRA CON JUSTICIA AL ENEMIGO VENCERA Y CON SU FUEGO ENARDECIENDO NUESTRO PECHO SUS GUERREROS AVANZAMOS JUBILOSOS A ABATIR CON MANO FUERTE Y TENSO BRAZO A LAS HUESTES DEL MAL DEL ENEMIGO MARCHANDO AL FRENTE DE NOSOTROS ESTA UN BRAVO CAPITAN DE GRAN PODER Y DE GRAN FUERZA JESUCRISTO HIJO DE DIOS LEON DE JUDA A EL SEGUIMOS Y EN SU NOMBRE COMBATIMOS Y REVESTIDOS HEMOS SIDO DE ARMAS NOBLES DE LAS ARMAS DE LA LUZ DEL SENOR MISMO ARMADURA  INVENCIBLE ESCUDO FUERTE Y LA ESPADA SIEMPRE FIEL DE SU PALABRA NO NOS DOMINA NUNCA EL MIEDO A LA DERROTA LA VICTORIA ESTA GANADA EN JESUCRISTO ABATIDOS YA LA MUERTE  Y EL PECADO EL SENOR ES VENCEDOR A  EL LA GLORIA  DIGNO EL SENOR DE LOS EJERCITOS FUERTE EL SENOR OMNIPOTENTE GLORIA AL SENOR PODEROSO HONOR AL SENOR NUESTRO DIOS  2 HONOR AL SENOR NUESTRO DIOS',
     songBook: [
       {
-        _id: "63981a335e80dca2554345d1",
-        BookName: "CADV2011",
-        Number: "1",
+        songBook: {
+          id: '647e3eb90e09bb332940a4cf',
+          name: '2009',
+        },
+        songBookName: '2009',
+        number: '1',
       },
       {
-        _id: "63981a335e80dca2554345d2",
-        BookName: "CADV2019",
-        Number: "1",
+        songBook: {
+          id: '647e3eb90e09bb332940a4d1',
+          name: '2016',
+        },
+        songBookName: '2016',
+        number: '1',
       },
       {
-        _id: "63981a335e80dca2554345d3",
-        BookName: "Jesed2016",
-        Number: "1",
+        songBook: {
+          id: '647e3eb90e09bb332940a4d3',
+          name: '2023',
+        },
+        songBookName: '2023',
+        number: '1',
       },
     ],
   },
   {
-    _id: "63981a335e80dca2554345f3",
-    title: "NACIMOS EN UNA BATALLA",
-    subTitle: "",
-    text: "NACIMOS EN UNA BATALLA DEBEMOS LUCHAR ESTA MAS ALLA DE LO VISIBLE DOS REINOS EN GUERRA SIN PAR COMENZO HACE MUCHO TIEMPO  EN EL JARDIN DEL EDEN SATANAS EL ENEMIGO  AL HOMBRE  ENGANO Y DIOS HIZO UNA PROMESA  AL FIN TE VENCERE PORQUE EL REINO DEL MUNDO SERA POR FIN EL REINO DE CRISTO Y DE NUESTRO DIOS Y  EL REINARA POR TODOS LOS SIGLOS  AMEN HAGAMOS NUESTRA LA VICTORIA QUE CRISTO NOS DA MESIAS Y HOMBRE  ORDINARIO NACIDO DE  UNA MUJER SATANAS DIJO HE VENCIDO  AL VER SU SANGRE CORRER A MI REINO DE PECADO NO AMENAZARA MAS JESUS RESUCITADO TRIUNFANTE LO VENCIO SU PALABRA NOS CONDUCE  AL TRIUNFO FINAL MARCHAMOS SIEMPRE  HACIA EL FRENTE TOMANDO LAS ARMAS DE DIOS SOMOS MAS QUE VENCEDORES QUIEN LE PODRA RESISTIR Y NOS GOZAREMOS TODOS EN NUESTRO CREADOR Y AL LLAMADO MENTIRO SO DIOS LO DESTRUIRA",
+    id: '647e3eb90e09bb332940a508',
+    title: 'NACIMOS EN UNA BATALLA',
+    subTitle: '',
+    text: 'NACIMOS EN UNA BATALLA DEBEMOS LUCHAR ESTA MAS ALLA DE LO VISIBLE DOS REINOS EN GUERRA SIN PAR COMENZO HACE MUCHO TIEMPO  EN EL JARDIN DEL EDEN SATANAS EL ENEMIGO  AL HOMBRE  ENGANO Y DIOS HIZO UNA PROMESA  AL FIN TE VENCERE PORQUE EL REINO DEL MUNDO SERA POR FIN EL REINO DE CRISTO Y DE NUESTRO DIOS Y  EL REINARA POR TODOS LOS SIGLOS  AMEN HAGAMOS NUESTRA LA VICTORIA QUE CRISTO NOS DA MESIAS Y HOMBRE  ORDINARIO NACIDO DE  UNA MUJER SATANAS DIJO HE VENCIDO  AL VER SU SANGRE CORRER A MI REINO DE PECADO NO AMENAZARA MAS JESUS RESUCITADO TRIUNFANTE LO VENCIO SU PALABRA NOS CONDUCE  AL TRIUNFO FINAL MARCHAMOS SIEMPRE  HACIA EL FRENTE TOMANDO LAS ARMAS DE DIOS SOMOS MAS QUE VENCEDORES QUIEN LE PODRA RESISTIR Y NOS GOZAREMOS TODOS EN NUESTRO CREADOR Y AL LLAMADO MENTIRO SO DIOS LO DESTRUIRA',
     songBook: [
       {
-        _id: "63981a335e80dca2554345f4",
-        BookName: "CADV2011",
-        Number: "2",
+        songBook: {
+          id: '647e3eb90e09bb332940a50a',
+          name: '2009',
+        },
+        songBookName: '2009',
+        number: '2',
       },
       {
-        _id: "63981a335e80dca2554345f5",
-        BookName: "CADV2019",
-        Number: "2",
+        songBook: {
+          id: '647e3eb90e09bb332940a50c',
+          name: '2016',
+        },
+        songBookName: '2016',
+        number: '2',
       },
       {
-        _id: "63981a335e80dca2554345f6",
-        BookName: "Jesed2016",
-        Number: "2",
+        songBook: {
+          id: '647e3eb90e09bb332940a50e',
+          name: '2023',
+        },
+        songBookName: '2023',
+        number: '2',
       },
     ],
   },
   {
-    _id: "63981a335e80dca255434610",
-    title: "SENOR TU REINAS",
-    subTitle: "SAL 97",
-    text: "HOM SENOR TU REINAS SENOR TU REINAS SENOR    TU REINAS MUJ              TU   REINAS    TU REINAS TU REINAS REINA EL SENOR EN LA TIERRA  ENTRE NUBES Y OSCURIDAD AL ENEMIGO CON FUEGO LO CONSUMIRA BRILLO  UN RAYO DE LUZ EL MUNDO SE ILUMINO LAS MONTANAS SE DERRUMBARAN DELANTE DEL SENOR TU VIENES EN EL AUXILIO DEL QUE SE ALEJA DEL MAL PARA EL DE CORAZON LIMPIO Y PURO TU LUZ BRILLARA SION SE ALEGRA AL OIR LOS JUICIOS QUE VIENEN DE DIOS SOBRE CIELO Y TIERRA DIOS ESTA  GLORIOSO ES EL SENOR LOS CIELOS PROCLAMAN SU GLORIA LOS PUEBLOS RECONOCERAN QUE SOLO  EL ES EL CREADOR Y  EL UNICO DIOS HOM SENOR TU  REINAS  SENOR TU  REINAS MUJ                TU REINAS TU REINAS HOM SENOR TU REINAS SENOR  TU REINAS SENOR         REINA YA MUJ                  TU REINAS    TU REINAS  SENOR REINA YA",
+    id: '647e3eba0e09bb332940a538',
+    title: 'SENOR TU REINAS',
+    subTitle: 'SAL 97',
+    text: 'HOM SENOR TU REINAS SENOR TU REINAS SENOR    TU REINAS MUJ              TU   REINAS    TU REINAS TU REINAS REINA EL SENOR EN LA TIERRA  ENTRE NUBES Y OSCURIDAD AL ENEMIGO CON FUEGO LO CONSUMIRA BRILLO  UN RAYO DE LUZ EL MUNDO SE ILUMINO LAS MONTANAS SE DERRUMBARAN DELANTE DEL SENOR TU VIENES EN EL AUXILIO DEL QUE SE ALEJA DEL MAL PARA EL DE CORAZON LIMPIO Y PURO TU LUZ BRILLARA SION SE ALEGRA AL OIR LOS JUICIOS QUE VIENEN DE DIOS SOBRE CIELO Y TIERRA DIOS ESTA  GLORIOSO ES EL SENOR LOS CIELOS PROCLAMAN SU GLORIA LOS PUEBLOS RECONOCERAN QUE SOLO  EL ES EL CREADOR Y  EL UNICO DIOS HOM SENOR TU  REINAS  SENOR TU  REINAS MUJ                TU REINAS TU REINAS HOM SENOR TU REINAS SENOR  TU REINAS SENOR         REINA YA MUJ                  TU REINAS    TU REINAS  SENOR REINA YA',
     songBook: [
       {
-        _id: "63981a335e80dca255434611",
-        BookName: "CADV2011",
-        Number: "3",
+        songBook: {
+          id: '647e3eba0e09bb332940a53a',
+          name: '2009',
+        },
+        songBookName: '2009',
+        number: '3',
       },
       {
-        _id: "63981a335e80dca255434612",
-        BookName: "CADV2019",
-        Number: "3",
+        songBook: {
+          id: '647e3eba0e09bb332940a53c',
+          name: '2016',
+        },
+        songBookName: '2016',
+        number: '3',
       },
       {
-        _id: "63981a335e80dca255434613",
-        BookName: "Jesed2016",
-        Number: "3",
+        songBook: {
+          id: '647e3eba0e09bb332940a53e',
+          name: '2023',
+        },
+        songBookName: '2023',
+        number: '3',
       },
     ],
   },
 ];
 
-export const songDemoData = {
-  Subtitles: [],
-  BasedOn: ["(Sal 97)"],
-  VerseOrder: [
-    "E1",
-    "V1",
-    "E1",
-    "V2",
-    "E1",
-    "V3",
-    "E1",
-    "V4",
-    "E1",
-    "V5",
-    "E1",
-    "F1",
-  ],
-  SongTheme: [],
-  Active: true,
-  Deleted: false,
-  _id: "63981a335e80dca255434610",
-  Title: "SEÑOR, TÚ REINAS",
-  SongBooks: [
+export const songDemoData: SongInterface = {
+  id: '647e3eb90e09bb332940a4cd',
+  title: 'LA ESPADA DEL ESPÍRITU',
+  subtitles: [],
+  basedOn: [],
+  songBooks: [
     {
-      _id: "63981a335e80dca255434611",
-      BookName: "CADV2011",
-      Number: "3",
+      songBook: {
+        id: '647e3eb90e09bb332940a4cf',
+        name: '2009',
+      },
+      songBookName: '2009',
+      number: '1',
     },
     {
-      _id: "63981a335e80dca255434612",
-      BookName: "CADV2019",
-      Number: "3",
+      songBook: {
+        id: '647e3eb90e09bb332940a4d1',
+        name: '2016',
+      },
+      songBookName: '2016',
+      number: '1',
     },
     {
-      _id: "63981a335e80dca255434613",
-      BookName: "Jesed2016",
-      Number: "3",
+      songBook: {
+        id: '647e3eb90e09bb332940a4d3',
+        name: '2023',
+      },
+      songBookName: '2023',
+      number: '1',
     },
   ],
-  ChoresIntro: [],
-  Verses: [
+  authors: [],
+  songTheme: [],
+  capo: 0,
+  musicURL:
+    'https://riamusica.org/wp-content/uploads/2018/06/1-La-Espada-del-Espíritu.mp3',
+  verses: [
     {
-      _id: "63981a335e80dca255434614",
-      Type: "E1",
-      Lines: [
+      type: 'V',
+      title: 'V1',
+      lines: [
         {
-          _id: "63981a335e80dca255434615",
-          LineNumber: 0,
-          Chores: [],
-          Letter:
-            "HOM: Seño↗r, tú rei↘nas. Seño↗r, tú reinas. Seño↘r,    tú re↘inas.",
+          lineNumber: 0,
+          letter: 'Dios se_ha forjado con nosotros una_espada',
+          chords: [],
         },
         {
-          _id: "63981a335e80dca255434616",
-          LineNumber: 1,
-          Chores: [],
-          Letter: "MUJ:              Tú   reina↗s,    tú reina↘s, tú↘ re↘inas.",
+          lineNumber: 1,
+          letter: 'y nos toma_en su derecha poderosa.',
+          chords: [],
+        },
+        {
+          lineNumber: 2,
+          letter: 'Se levanta / el Señor a_hacer la guerra;',
+          chords: [],
+        },
+        {
+          lineNumber: 3,
+          letter: 'con justicia_al enemigo vencerá.',
+          chords: [],
         },
       ],
     },
     {
-      _id: "63981a335e80dca255434617",
-      Type: "V1",
-      Lines: [
+      type: 'V',
+      title: 'V2',
+      lines: [
         {
-          _id: "63981a335e80dca255434618",
-          LineNumber: 0,
-          Chores: [],
-          Letter: "Reina_el Señor en la tierra, / entre nubes y_oscuridad;",
+          lineNumber: 0,
+          letter: 'Y con su fuego_enardeciendo nuestro pecho',
+          chords: [],
         },
         {
-          _id: "63981a335e80dca255434619",
-          LineNumber: 1,
-          Chores: [],
-          Letter: "al enemigo con fuego lo consumirá.",
-        },
-      ],
-    },
-    {
-      _id: "63981a335e80dca25543461a",
-      Type: "V2",
-      Lines: [
-        {
-          _id: "63981a335e80dca25543461b",
-          LineNumber: 0,
-          Chores: [],
-          Letter: "Brilló / un rayo de luz, el mundo se_iluminó;",
+          lineNumber: 1,
+          letter: 'sus guerreros avanzamos jubilosos,',
+          chords: [],
         },
         {
-          _id: "63981a335e80dca25543461c",
-          LineNumber: 1,
-          Chores: [],
-          Letter: "las montañas se derrumbarán delante del Seño↘r.",
+          lineNumber: 2,
+          letter: 'a_abatir con mano fuerte_y tenso brazo',
+          chords: [],
+        },
+        {
+          lineNumber: 3,
+          letter: 'a las huestes del mal del enemigo.',
+          chords: [],
         },
       ],
     },
     {
-      _id: "63981a335e80dca25543461d",
-      Type: "V3",
-      Lines: [
+      type: 'V',
+      title: 'V3',
+      lines: [
         {
-          _id: "63981a335e80dca25543461e",
-          LineNumber: 0,
-          Chores: [],
-          Letter: "Tú vienes en el auxilio del que se_aleja del mal,",
+          lineNumber: 0,
+          letter: 'Marchando_al frente de nosotros está_un bravo,',
+          chords: [],
         },
         {
-          _id: "63981a335e80dca25543461f",
-          LineNumber: 1,
-          Chores: [],
-          Letter: "para_el de corazón limpio_y puro tu luz brillará.",
-        },
-      ],
-    },
-    {
-      _id: "63981a335e80dca255434620",
-      Type: "V4",
-      Lines: [
-        {
-          _id: "63981a335e80dca255434621",
-          LineNumber: 0,
-          Chores: [],
-          Letter: "Sión se_alegra_al oír los juicios que vienen de Dio↘s.",
+          lineNumber: 1,
+          letter: 'Capitán de gran poder y de gran fuerza:',
+          chords: [],
         },
         {
-          _id: "63981a335e80dca255434622",
-          LineNumber: 1,
-          Chores: [],
-          Letter: "Sobre cielo_y tierra Dios está;  ¡glorioso_es el Seño↘r!",
+          lineNumber: 2,
+          letter: 'Jesucristo,_Hijo de Dios, León de Judá↘;',
+          chords: [],
+        },
+        {
+          lineNumber: 3,
+          letter: 'a_él seguimos y_en su Nombre combatimos.',
+          chords: [],
         },
       ],
     },
     {
-      _id: "63981a335e80dca255434623",
-      Type: "V5",
-      Lines: [
+      type: 'V',
+      title: 'V4',
+      lines: [
         {
-          _id: "63981a335e80dca255434624",
-          LineNumber: 0,
-          Chores: [],
-          Letter: "Los cielos proclaman su gloria; los pueblos reconoce↗rán",
+          lineNumber: 0,
+          letter: 'Y revestidos hemos sido de_armas nobles,',
+          chords: [],
         },
         {
-          _id: "63981a335e80dca255434625",
-          LineNumber: 1,
-          Chores: [],
-          Letter: "que solo / él es el creador y / el único Dios.",
+          lineNumber: 1,
+          letter: 'de las armas de la luz del Señor mismo:',
+          chords: [],
+        },
+        {
+          lineNumber: 2,
+          letter: 'armadura / invencible,_escudo fuerte,',
+          chords: [],
+        },
+        {
+          lineNumber: 3,
+          letter: 'y la_espada siempre fiel de su Palabra.',
+          chords: [],
         },
       ],
     },
     {
-      _id: "63981a335e80dca255434626",
-      Type: "F1",
-      Lines: [
+      type: 'V',
+      title: 'V5',
+      lines: [
         {
-          _id: "63981a335e80dca255434627",
-          LineNumber: 0,
-          Chores: [],
-          Letter: "HOM: Seño↗r, tú  re↘inas.  Seño↗r, tú  reinas;",
+          lineNumber: 0,
+          letter: 'No nos domina nunca_el miedo_a la derrota,',
+          chords: [],
         },
         {
-          _id: "63981a335e80dca255434628",
-          LineNumber: 1,
-          Chores: [],
-          Letter: "MUJ:                Tú reina↗s, tú reina↘s,",
+          lineNumber: 1,
+          letter: 'la victoria_está ganada_en Jesucristo;',
+          chords: [],
         },
         {
-          _id: "63981a335e80dca255434629",
-          LineNumber: 2,
-          Chores: [],
-          Letter:
-            "HOM: Seño↘r, tú reinas. Seño↘r,  tú reinas. Seño↘r,         reina ya.",
+          lineNumber: 2,
+          letter: 'abatidos ya la muerte / y el pecado,',
+          chords: [],
         },
         {
-          _id: "63981a335e80dca25543462a",
-          LineNumber: 3,
-          Chores: [],
-          Letter:
-            "MUJ:                  Tú reina↘↗s,    tú reina↘↗s,  Señor, reina ya.",
+          lineNumber: 3,
+          letter: 'el Señor es vencedor, a / él la gloria.',
+          chords: [],
+        },
+      ],
+    },
+    {
+      type: 'F',
+      title: 'F1',
+      lines: [
+        {
+          lineNumber: 0,
+          letter: '{ ¡Digno_el Señor de los Ejérci↘tos!',
+          chords: [],
+        },
+        {
+          lineNumber: 1,
+          letter: '¡Fuerte_el Señor Omnipote↘nte!',
+          chords: [],
+        },
+        {
+          lineNumber: 2,
+          letter: '¡Gloria_al Señor Podero↘so!',
+          chords: [],
+        },
+        {
+          lineNumber: 3,
+          letter: '¡Honor al Señor nuestro Dios! } (2)',
+          chords: [],
+        },
+        {
+          lineNumber: 4,
+          letter: '¡Honor al Señor nuestro Dios!',
+          chords: [],
         },
       ],
     },
   ],
-  Authors: [],
-  MusicURL:
-    "https://www.riamusica.org/wp-content/uploads/2018/06/1-La-Espada-del-Esp%C3%ADritu.mp3",
-  __v: 0,
-  createdAt: "2022-12-13T06:22:44.892Z",
-  updatedAt: "2022-12-13T06:22:44.892Z",
+  lyricsVerseOrder: [
+    {
+      verseTitle: 'V1',
+      order: 0,
+    },
+    {
+      verseTitle: 'V2',
+      order: 1,
+    },
+    {
+      verseTitle: 'V3',
+      order: 2,
+    },
+    {
+      verseTitle: 'V4',
+      order: 3,
+    },
+    {
+      verseTitle: 'V5',
+      order: 4,
+    },
+    {
+      verseTitle: 'F1',
+      order: 5,
+    },
+  ],
+  presenterVerseOrder: [
+    {
+      verseTitle: 'V1',
+      order: 0,
+    },
+    {
+      verseTitle: 'V2',
+      order: 1,
+    },
+    {
+      verseTitle: 'V3',
+      order: 2,
+    },
+    {
+      verseTitle: 'V4',
+      order: 3,
+    },
+    {
+      verseTitle: 'V5',
+      order: 4,
+    },
+    {
+      verseTitle: 'V1',
+      order: 5,
+    },
+    {
+      verseTitle: 'F1',
+      order: 6,
+    },
+  ],
+  chordsVerseOrder: [
+    {
+      verseTitle: 'V1',
+      order: 0,
+    },
+    {
+      verseTitle: 'V2',
+      order: 1,
+    },
+    {
+      verseTitle: 'V3',
+      order: 2,
+    },
+    {
+      verseTitle: 'V4',
+      order: 3,
+    },
+    {
+      verseTitle: 'V5',
+      order: 4,
+    },
+    {
+      verseTitle: 'F1',
+      order: 5,
+    },
+  ],
+  version: 1,
+  approved: false,
+  active: false,
 };
