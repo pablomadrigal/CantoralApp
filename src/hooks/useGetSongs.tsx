@@ -18,6 +18,7 @@ import {
 function useGetSongs() {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+  const [songsInDB, setSongsInDB] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<SongInterface[] | null>(null);
   const updatedDataFromServer = useSelector(updatedDataFromServerSelector);
@@ -30,8 +31,10 @@ function useGetSongs() {
       const songCount = await db.count('songs');
       if (songCount > 0) {
         setLoading(false);
+        setSongsInDB(true);
       } else {
         const dataResponse = await fetchAllSongs();
+        setUpdating(true);
         if (dataResponse.status === 1 && dataResponse?.data?.length > 0) {
           const tx = db.transaction(['songs'], 'readwrite');
           dataResponse.data.forEach((song) => {
@@ -114,6 +117,10 @@ function useGetSongs() {
           })
           .map(async (onlineSong) => await fetchSongById(onlineSong.id))
       );
+      const deletedSongs = songArray.filter(
+        (song) =>
+          !onlineSongList.find((onlineSong) => song.id === onlineSong.id)
+      );
       const transaction = db.transaction(['songs'], 'readwrite');
       modifiedSongs.forEach((item) => {
         if (item.status === 1) {
@@ -121,15 +128,18 @@ function useGetSongs() {
           void transaction.objectStore('songs').put(data);
         }
       });
+      deletedSongs.forEach((item) => {
+        void transaction.objectStore('songs').delete(item.id);
+      });
       void transaction.done.then(() => {
         dispatch(setUpdatedDataFromServer(true));
       });
     };
-    if (!updatedDataFromServer && !updating) {
+    if (!updatedDataFromServer && !updating && songsInDB) {
       setUpdating(true);
       void updateDataFromServer();
     }
-  }, [searchText, updatedDataFromServer]);
+  }, [searchText, updatedDataFromServer, songsInDB]);
 
   return { data, loading, error };
 }
