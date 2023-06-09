@@ -1,10 +1,10 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import {
   CantoralModeConstants,
   ScreenModeConstants,
-} from "../../constants/SettingsConstants";
-import { SearchInterface } from "../../types/SearchTypes";
-import { nullableStringCompare } from "../../utils/stringUtils";
+} from '../../constants/SettingsConstants';
+import { SearchInterface } from '../../types/SearchTypes';
+import { nullableStringCompare } from '../../utils/stringUtils';
 
 interface generalConfigStateInferface {
   cantoralMode: string;
@@ -15,6 +15,7 @@ interface generalConfigStateInferface {
   selectedSongBook: string;
   searchText: SearchInterface[] | null;
   textSize: number;
+  updatedDataFromServer: boolean;
 }
 
 const initialState: generalConfigStateInferface = {
@@ -23,13 +24,14 @@ const initialState: generalConfigStateInferface = {
   showChores: false,
   showPresenterModal: false,
   selectedSong: null,
-  selectedSongBook: "2023",
+  selectedSongBook: '2023',
   searchText: null,
   textSize: 0,
+  updatedDataFromServer: false,
 };
 
 const generalConfigSlice = createSlice({
-  name: "config",
+  name: 'config',
   initialState,
   reducers: {
     setTextMode: (state) => {
@@ -67,17 +69,17 @@ const generalConfigSlice = createSlice({
         type: string;
       }
     ) => {
-      state.searchText =
-        action.payload?.sort((a, b) =>
-          nullableStringCompare(
-            a.songBook.find(
-              (book) => book.songBookName === state.selectedSongBook
-            )?.number,
-            b.songBook.find(
-              (book) => book.songBookName === state.selectedSongBook
-            )?.number
-          )
-        ) || null;
+      state.searchText = action.payload || null;
+      state.searchText.sort((a, b) =>
+        nullableStringCompare(
+          a.songBook.find(
+            (book) => book.songBookName === state.selectedSongBook
+          )?.number,
+          b.songBook.find(
+            (book) => book.songBookName === state.selectedSongBook
+          )?.number
+        )
+      );
     },
     setSelectedSongId: (
       state,
@@ -107,13 +109,22 @@ const generalConfigSlice = createSlice({
             b.songBook.find((book) => book.songBookName === action.payload)
               ?.number
           )
-        ) || null;
+        ) ?? null;
     },
     setLessTextSize: (state) => {
       state.textSize = state.textSize - 1;
     },
     setMoreTextSize: (state) => {
       state.textSize = state.textSize + 1;
+    },
+    setUpdatedDataFromServer: (
+      state,
+      action: {
+        payload: boolean;
+        type: string;
+      }
+    ) => {
+      state.updatedDataFromServer = action.payload;
     },
   },
 });
@@ -134,6 +145,7 @@ export const {
   setSelectedSongBook,
   setLessTextSize,
   setMoreTextSize,
+  setUpdatedDataFromServer,
 } = generalConfigSlice.actions;
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
@@ -167,6 +179,11 @@ export const searchTextSelector = createSelector(
 export const selectedSongBookSelector = createSelector(
   [generalConfigState],
   (state: generalConfigStateInferface) => state.selectedSongBook
+);
+
+export const updatedDataFromServerSelector = createSelector(
+  [generalConfigState],
+  (state: generalConfigStateInferface) => state.updatedDataFromServer
 );
 
 export default generalConfigSlice.reducer;

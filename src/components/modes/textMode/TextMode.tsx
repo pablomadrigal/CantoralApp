@@ -1,24 +1,31 @@
-import { useState, useEffect } from "react";
-import { Box, Paper, Typography } from "@mui/material";
-import { useSelector } from "../../../hooks/useRedux";
-import { selectedSongSelector } from "../../../store/slices/selectedSongSlice";
+import { useState, useEffect } from 'react';
+import { Box, Paper, Typography } from '@mui/material';
+import { useSelector } from '../../../hooks/useRedux';
+import {
+  choresVersesSelector,
+  lyricsSelector,
+  selectedSongSelector,
+} from '../../../store/slices/selectedSongSlice';
 import {
   cantoralModeSelector,
   selectedSongBookSelector,
-} from "../../../store/slices/generalConfigSlice";
-import { cantoralToHTML } from "../../../utils/parserUtils";
-import { CantoralModeConstants } from "../../../constants/SettingsConstants";
-import ChordsControl from "../../chordsControl/ChordsControl";
-import "./ChordView.css";
+} from '../../../store/slices/generalConfigSlice';
+import { cantoralToHTML } from '../../../utils/parserUtils';
+import { CantoralModeConstants } from '../../../constants/SettingsConstants';
+import ChordsControl from '../../chordsControl/ChordsControl';
+import './ChordView.css';
+import TextVerse from '../../verses/TextVerse';
 
 const TextMode = () => {
   const selectedSong = useSelector(selectedSongSelector);
+  const lyrics = useSelector(lyricsSelector);
+  const choresVerses = useSelector(choresVersesSelector);
   const selectedSongBook = useSelector(selectedSongBookSelector);
-  const [songBookNumber, setSongBookNumber] = useState<string>("");
+  const [songBookNumber, setSongBookNumber] = useState<string>('');
   const [currentTono, setCurrentTono] = useState(
-    selectedSong?.baseChord?.type ?? "DO"
+    selectedSong?.baseChord?.type ?? 'DO'
   );
-  const [currentCapo, setCurrentCapo] = useState(selectedSong?.capo || 0);
+  const [currentCapo, setCurrentCapo] = useState(selectedSong?.capo ?? 0);
   const cantoralMode = useSelector(cantoralModeSelector);
 
   useEffect(() => {
@@ -30,11 +37,9 @@ const TextMode = () => {
       const selectedSongBookNumber = selectedSong.songBooks.find(
         (songBook) => songBook.songBook.name === selectedSongBook
       );
-      if (selectedSongBookNumber?.number) {
-        setSongBookNumber(selectedSongBookNumber?.number);
-      }
+      setSongBookNumber(selectedSongBookNumber?.number ?? '');
     } else {
-      setSongBookNumber("");
+      setSongBookNumber('');
     }
   }, [selectedSong, selectedSongBook]);
 
@@ -51,66 +56,62 @@ const TextMode = () => {
         {chordsActivated && (
           <ChordsControl
             capo={selectedSong.capo}
-            tono={selectedSong.baseChord?.type || "DO"}
+            tono={selectedSong.baseChord?.type ?? 'DO'}
             onchange={handleChange}
           />
         )}
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
+            display: 'flex',
+            justifyContent: 'center',
             mt: chordsActivated ? 10 : 0,
           }}
         >
           <Paper sx={{ p: 3 }}>
-            <Typography variant="h5" align="center">
-              {songBookNumber} - {selectedSong.title}
+            <Typography variant="h5" align="center" sx={{ mb: 3 }}>
+              {songBookNumber && `${songBookNumber} - `} {selectedSong.title}
             </Typography>
             <div
               style={{
-                fontFamily: "Cochin",
-                fontSize: 13,
-                textAlign: "right",
-                color: "#57585b",
+                fontFamily: 'Cochin',
+                fontSize: 15,
+                textAlign: 'right',
+                color: '#57585b',
+                fontStyle: 'italic',
               }}
             >
               {selectedSong.authors.map((author) => (
-                <li key={author.author.id}>
+                <div key={author.author.id}>
                   {author.author.name} {author.author.lastName}
-                </li>
+                </div>
               ))}
             </div>
             <br />
-            {selectedSong.verses.map((verse) => {
-              const html = cantoralToHTML({
-                song: verse.lines,
-                capoBase: selectedSong?.capo,
-                tonoBaseCancion: selectedSong?.baseChord?.type || "DO",
-                currentTono,
-                currentCapo,
-              });
-              return (
-                <Typography key={verse.title} component="div" textAlign="left">
-                  <br />
-                  {verse.type.includes("E") && (
-                    <span style={{ fontWeight: "bold" }}>Estribillo</span>
-                  )}
-                  {verse.type.includes("F") && (
-                    <span style={{ fontWeight: "bold" }}>Final</span>
-                  )}
-                  {chordsActivated ? (
-                    <div
-                      // eslint-disable-next-line react/no-danger
-                      dangerouslySetInnerHTML={{ __html: html }}
-                    />
-                  ) : (
-                    verse.lines.map((line) => (
+            {chordsActivated
+              ? choresVerses?.map((verse) => {
+                  const html = cantoralToHTML({
+                    song: verse.lines,
+                    capoBase: selectedSong?.capo,
+                    tonoBaseCancion: selectedSong?.baseChord?.type || 'DO',
+                    currentTono,
+                    currentCapo,
+                  });
+                  return (
+                    <TextVerse key={verse.id} type={verse.type}>
+                      <div
+                        // eslint-disable-next-line react/no-danger
+                        dangerouslySetInnerHTML={{ __html: html }}
+                      />
+                    </TextVerse>
+                  );
+                })
+              : lyrics?.map((verse) => (
+                  <TextVerse key={verse.id} type={verse.type}>
+                    {verse.lines.map((line) => (
                       <div key={line.lineNumber}>{line.letter}</div>
-                    ))
-                  )}
-                </Typography>
-              );
-            })}
+                    ))}
+                  </TextVerse>
+                ))}
           </Paper>
         </Box>
       </>

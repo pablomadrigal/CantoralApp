@@ -1,11 +1,11 @@
-import { useState, useEffect, FC } from "react";
-import { Box, Button, Grid, styled } from "@mui/material";
-import { useDispatch, useSelector } from "../../../hooks/useRedux";
+import { useState, useEffect, FC } from 'react';
+import { Box, Button, Grid, styled } from '@mui/material';
+import { useDispatch, useSelector } from '../../../hooks/useRedux';
 import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
   Replay as ReplayIcon,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 import {
   alignTextSelector,
   currentIdxSelector,
@@ -14,11 +14,11 @@ import {
   prevSlide,
   selectedSongSelector,
   slidesSelector,
-} from "../../../store/slices/selectedSongSlice";
+} from '../../../store/slices/selectedSongSlice';
 import {
   selectedSongBookSelector,
   textSizeSelector,
-} from "../../../store/slices/generalConfigSlice";
+} from '../../../store/slices/generalConfigSlice';
 
 type StyledDotProps = {
   selected: boolean;
@@ -28,19 +28,19 @@ export interface PresentationModeProps {
   isPresenter?: boolean;
 }
 
-const StyledDot = styled("button")<StyledDotProps>(({ selected }) => ({
-  display: "flex",
-  alignItems: "center",
-  cursor: "pointer",
-  position: "relative",
+const StyledDot = styled('button')<StyledDotProps>(({ selected }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  cursor: 'pointer',
+  position: 'relative',
   padding: 0,
   border: 0,
-  backgroundColor: "#395479",
-  width: selected ? "1rem" : "2rem",
-  marginRight: selected ? "0.75rem" : "0.5rem",
-  marginLeft: selected ? "0.75rem" : "0.5rem",
-  marginTop: "5px",
-  height: "0.5rem",
+  backgroundColor: '#395479',
+  width: selected ? '1rem' : '2rem',
+  marginRight: selected ? '0.75rem' : '0.5rem',
+  marginLeft: selected ? '0.75rem' : '0.5rem',
+  marginTop: '5px',
+  height: '0.5rem',
 }));
 
 const PresentationMode: FC<PresentationModeProps> = ({ isPresenter }) => {
@@ -51,7 +51,7 @@ const PresentationMode: FC<PresentationModeProps> = ({ isPresenter }) => {
   const alignText = useSelector(alignTextSelector);
   const textSize = useSelector(textSizeSelector);
   const dispatch = useDispatch();
-  const [songBookNumber, setSongBookNumber] = useState<string>("");
+  const [songBookNumber, setSongBookNumber] = useState<string>('');
 
   useEffect(() => {
     if (selectedSong) {
@@ -62,7 +62,7 @@ const PresentationMode: FC<PresentationModeProps> = ({ isPresenter }) => {
         setSongBookNumber(selectedSongBookNumber?.number);
       }
     } else {
-      setSongBookNumber("");
+      setSongBookNumber('');
     }
   }, [selectedSong, selectedSongBook]);
 
@@ -72,7 +72,7 @@ const PresentationMode: FC<PresentationModeProps> = ({ isPresenter }) => {
         <Grid container spacing={0} direction="row" alignItems="stretch">
           <Grid item md={1}>
             <Button
-              sx={{ height: "100%" }}
+              sx={{ height: '100%' }}
               onClick={() => dispatch(prevSlide())}
               size="large"
             >
@@ -82,14 +82,14 @@ const PresentationMode: FC<PresentationModeProps> = ({ isPresenter }) => {
           <Grid item xs md={10}>
             <Box
               sx={{
-                display: "flex",
+                display: 'flex',
                 fontSize: isPresenter ? 40 : textSize + 40,
-                textAlign: "center",
-                flexDirection: "column",
+                textAlign: 'center',
+                flexDirection: 'column',
                 margin: 3,
-                justifyContent: isPresenter ? "center" : alignText,
-                alignItems: "center",
-                height: "69vh",
+                justifyContent: isPresenter ? 'center' : alignText,
+                alignItems: 'center',
+                height: '69vh',
               }}
             >
               {slides[currentIdx]
@@ -116,15 +116,15 @@ const PresentationMode: FC<PresentationModeProps> = ({ isPresenter }) => {
               <Grid item xs zeroMinWidth>
                 <div
                   style={{
-                    fontFamily: "Cochin",
+                    fontFamily: 'Cochin',
                     fontSize: 30,
-                    textAlign: "left",
-                    color: "#57585b",
-                    overflow: "hidden",
-                    display: "-webkit-box",
+                    textAlign: 'left',
+                    color: '#57585b',
+                    overflow: 'hidden',
+                    display: '-webkit-box',
                     WebkitLineClamp: 3,
                     lineClamp: 3,
-                    WebkitBoxOrient: "vertical",
+                    WebkitBoxOrient: 'vertical',
                   }}
                 >
                   {songBookNumber} {selectedSong.title}
@@ -134,16 +134,16 @@ const PresentationMode: FC<PresentationModeProps> = ({ isPresenter }) => {
               <Grid item xs={6} zeroMinWidth>
                 <div
                   style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "center",
-                    marginTop: "1rem",
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    marginTop: '1rem',
                   }}
                 >
                   {slides?.map((slide, idx) => {
                     return (
                       <StyledDot
-                        key={slide.slideNumber}
+                        key={slide.verseNumber}
                         selected={idx === currentIdx}
                         onClick={() => dispatch(goToSlide(idx))}
                       />
@@ -156,7 +156,7 @@ const PresentationMode: FC<PresentationModeProps> = ({ isPresenter }) => {
           </Grid>
           <Grid item md={1}>
             <Button
-              sx={{ height: "100%" }}
+              sx={{ height: '100%' }}
               onClick={() => dispatch(nextSlide())}
               size="large"
             >

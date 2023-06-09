@@ -12,28 +12,28 @@ export interface SongBookItemInterface {
 
 // eslint-disable-next-line no-shadow
 export enum ChordsEnum {
-  DO = "DO",
-  DO_SOSTENIDO = "DO#",
-  RE = "RE",
-  RE_SOSTENIDO = "RE#",
-  MI = "MI",
-  FA = "FA",
-  FA_SOSTENIDO = "FA#",
-  SOL = "SOL",
-  SOL_SOSTENIDO = "SOL#",
-  LA = "LA",
-  LA_SOSTENIDO = "LA#",
-  SI = "SI",
+  DO = 'DO',
+  DO_SOSTENIDO = 'DO#',
+  RE = 'RE',
+  RE_SOSTENIDO = 'RE#',
+  MI = 'MI',
+  FA = 'FA',
+  FA_SOSTENIDO = 'FA#',
+  SOL = 'SOL',
+  SOL_SOSTENIDO = 'SOL#',
+  LA = 'LA',
+  LA_SOSTENIDO = 'LA#',
+  SI = 'SI',
 }
 
 // eslint-disable-next-line no-shadow
 export enum ChordDecorationEnum {
-  MENOR = "m",
-  SUS = "sus",
-  SIENTE = "7",
-  NUEVE = "9",
-  SUS4 = "sus4",
-  SUS2 = "sus2",
+  MENOR = 'm',
+  SUS = 'sus',
+  SIENTE = '7',
+  NUEVE = '9',
+  SUS4 = 'sus4',
+  SUS2 = 'sus2',
 }
 
 export interface ChorInterface {
@@ -103,7 +103,9 @@ export interface SongInterface {
   approved: boolean;
 }
 
-export interface SliceSchema {
-  slideNumber: number;
+export interface VerseSchema {
+  id: string;
+  type: string;
+  verseNumber: number;
   lines: LineInterface[];
 }

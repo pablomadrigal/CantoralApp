@@ -1,5 +1,5 @@
-import { ReactElement } from "react";
-import { Button, Grid, Paper, Stack } from "@mui/material";
+import { ReactElement } from 'react';
+import { Button, Grid, Paper, Stack } from '@mui/material';
 import {
   VerticalAlignTop as VerticalAlignTopIcon,
   VerticalAlignCenter as VerticalAlignCenterIcon,
@@ -9,8 +9,8 @@ import {
   DesktopAccessDisabled as DesktopAccessDisabledIcon,
   DesktopMac as DesktopMacIcon,
   Monitor as MonitorIcon,
-} from "@mui/icons-material";
-import { useDispatch, useSelector } from "../../hooks/useRedux";
+} from '@mui/icons-material';
+import { useDispatch, useSelector } from '../../hooks/useRedux';
 import {
   screenModeSelector,
   setBlackMode,
@@ -18,8 +18,8 @@ import {
   setMoreTextSize,
   setNormalMode,
   setWhiteMode,
-} from "../../store/slices/generalConfigSlice";
-import PresentationMode from "../modes/presentationMode/PresentationMode";
+} from '../../store/slices/generalConfigSlice';
+import PresentationMode from '../modes/presentationMode/PresentationMode';
 import {
   currentIdxSelector,
   goToSlide,
@@ -27,9 +27,9 @@ import {
   setAlignTextEnd,
   setAlignTextStart,
   slidesSelector,
-} from "../../store/slices/selectedSongSlice";
-import AutocompleteSong from "../formInputs/AutocompleteSong";
-import { ScreenModeConstants } from "../../constants/SettingsConstants";
+} from '../../store/slices/selectedSongSlice';
+import AutocompleteSong from '../formInputs/AutocompleteSong';
+import { ScreenModeConstants } from '../../constants/SettingsConstants';
 
 interface menuButtonsInterface {
   id: number;
@@ -104,13 +104,13 @@ const PresenterModal = () => {
   ];
 
   return (
-    <Stack style={{ backgroundColor: "#828281" }}>
-      <Grid container spacing={2} style={{ padding: "15px" }}>
+    <Stack style={{ backgroundColor: '#828281' }}>
+      <Grid container spacing={2} style={{ padding: '15px' }}>
         {menuButtons.map((button) => (
           <Grid item key={button.id}>
             <Button
               onClick={button.onClick}
-              style={{ backgroundColor: "white" }}
+              style={{ backgroundColor: 'white' }}
             >
               {button.icon}
             </Button>
@@ -122,10 +122,10 @@ const PresenterModal = () => {
       </Grid>
       <div
         style={{
-          maxWidth: "1300px",
-          backgroundColor: "white",
-          marginLeft: "15px",
-          marginRight: "15px",
+          maxWidth: '1300px',
+          backgroundColor: 'white',
+          marginLeft: '15px',
+          marginRight: '15px',
         }}
       >
         <PresentationMode isPresenter />
@@ -134,12 +134,12 @@ const PresenterModal = () => {
         container
         spacing={2}
         style={{
-          height: "25%",
-          maxWidth: "1300px",
-          overflowX: "scroll",
-          padding: "15px",
-          marginLeft: "15px",
-          marginRight: "15px",
+          height: '25%',
+          maxWidth: '1300px',
+          overflowX: 'scroll',
+          padding: '15px',
+          marginLeft: '15px',
+          marginRight: '15px',
         }}
         wrap="nowrap"
       >
@@ -147,23 +147,23 @@ const PresenterModal = () => {
           ? slides.map((slide, index) => (
               <Grid
                 item
-                key={slide.slideNumber}
+                key={slide.verseNumber}
                 onClick={() => dispatch(goToSlide(index))}
               >
                 <Paper
                   style={{
-                    minWidth: "300px",
-                    height: "100%",
-                    fontSize: "0.75rem",
-                    textAlign: "center",
-                    cursor: "pointer",
+                    minWidth: '300px',
+                    height: '100%',
+                    fontSize: '0.75rem',
+                    textAlign: 'center',
+                    cursor: 'pointer',
                     border:
                       index === currentIdx
-                        ? "1px solid black"
-                        : "2px solid black",
-                    margin: "5px",
+                        ? '1px solid black'
+                        : '2px solid black',
+                    margin: '5px',
                     backgroundColor:
-                      index === currentIdx ? "cornsilk" : "white",
+                      index === currentIdx ? 'cornsilk' : 'white',
                   }}
                   elevation={index === currentIdx ? 5 : 0}
                 >

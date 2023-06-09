@@ -1,15 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import {
-  SliceSchema,
+  VerseSchema,
   SongInterface,
   VerseInterface,
-} from "../../types/SongTypes";
-import { AlignTextConstants } from "../../constants/SettingsConstants";
+  VerseOrderInterface,
+} from '../../types/SongTypes';
+import {
+  AlignTextConstants,
+  CantoralModeConstants,
+} from '../../constants/SettingsConstants';
+import { getRandomString } from '../../utils/stringUtils';
 
 interface selectedSongStateInferface {
   selectedSong: SongInterface | null;
-  slides: SliceSchema[] | null;
+  slides: VerseSchema[] | null;
+  lyrics: VerseSchema[] | null;
+  choresVerses: VerseSchema[] | null;
   currentIdx: number;
   alignText: string;
 }
@@ -19,32 +26,51 @@ interface updateIndexInterface {
   totalSlides: number;
 }
 
-const songToSlide = (song: SongInterface) => {
-  const orderedVerses: VerseInterface[] = [];
+const returnOrderForMode = (
+  song: SongInterface,
+  type: CantoralModeConstants
+) => {
+  switch (type) {
+    case CantoralModeConstants.CHORDS:
+      return song.chordsVerseOrder;
+    case CantoralModeConstants.PRESENTATION:
+      return song.presenterVerseOrder;
+    default:
+      return song.lyricsVerseOrder;
+  }
+};
 
-  song.presenterVerseOrder.forEach((verse) => {
+const songToVerseArray = (song: SongInterface, type: CantoralModeConstants) => {
+  const orderedVerses: VerseInterface[] = [];
+  const order: VerseOrderInterface[] = returnOrderForMode(song, type);
+  order.sort((a, b) => a.order - b.order);
+  order.forEach((verse) => {
     const verseFound = song.verses.find(
       (originalVerse) => originalVerse.title === verse.verseTitle
     );
     if (verseFound) orderedVerses.push(verseFound);
   });
 
-  const temporalSlides: SliceSchema[] = [];
+  const temporalSlides: VerseSchema[] = [];
   orderedVerses.forEach((verse) => {
-    if (verse.lines.length > 8) {
+    if (type === CantoralModeConstants.PRESENTATION && verse.lines.length > 8) {
       const middle = verse.lines.length / 2;
-      const firstSlide: SliceSchema = {
+      const firstSlide: VerseSchema = {
+        id: `${verse?.id ?? getRandomString(6)}-1`,
         lines: [],
-        slideNumber: temporalSlides.length,
+        verseNumber: temporalSlides.length,
+        type: verse.type,
       };
       for (let i = 0; i < middle; i++) {
         firstSlide.lines.push(verse.lines[i]);
       }
       temporalSlides.push(firstSlide);
 
-      const secondSlide: SliceSchema = {
+      const secondSlide: VerseSchema = {
+        id: `${verse?.id ?? getRandomString(6)}-2`,
         lines: [],
-        slideNumber: temporalSlides.length,
+        verseNumber: temporalSlides.length,
+        type: verse.type,
       };
       for (let i = middle; i < verse.lines.length; i++) {
         secondSlide.lines.push(verse.lines[i]);
@@ -52,8 +78,10 @@ const songToSlide = (song: SongInterface) => {
       temporalSlides.push(secondSlide);
     } else {
       temporalSlides.push({
+        id: verse?.id ?? getRandomString(6),
         lines: verse.lines,
-        slideNumber: temporalSlides.length,
+        verseNumber: temporalSlides.length,
+        type: verse.type,
       });
     }
   });
@@ -82,10 +110,12 @@ const initialState: selectedSongStateInferface = {
   currentIdx: 0,
   alignText: AlignTextConstants.CENTER,
   slides: null,
+  lyrics: null,
+  choresVerses: null,
 };
 
 const selectedSongSlice = createSlice({
-  name: "selectedSong",
+  name: 'selectedSong',
   initialState,
   reducers: {
     setSelectedSong: (
@@ -96,7 +126,18 @@ const selectedSongSlice = createSlice({
       }
     ) => {
       state.selectedSong = action.payload;
-      state.slides = songToSlide(action.payload);
+      state.slides = songToVerseArray(
+        action.payload,
+        CantoralModeConstants.PRESENTATION
+      );
+      state.lyrics = songToVerseArray(
+        action.payload,
+        CantoralModeConstants.TEXT
+      );
+      state.choresVerses = songToVerseArray(
+        action.payload,
+        CantoralModeConstants.CHORDS
+      );
       state.currentIdx = 0;
     },
     setAlignTextCenter: (state) => {
@@ -156,6 +197,16 @@ export const selectedSongSelector = createSelector(
 export const slidesSelector = createSelector(
   [selectedSongState],
   (state: selectedSongStateInferface) => state.slides
+);
+
+export const lyricsSelector = createSelector(
+  [selectedSongState],
+  (state: selectedSongStateInferface) => state.lyrics
+);
+
+export const choresVersesSelector = createSelector(
+  [selectedSongState],
+  (state: selectedSongStateInferface) => state.choresVerses
 );
 
 export const currentIdxSelector = createSelector(

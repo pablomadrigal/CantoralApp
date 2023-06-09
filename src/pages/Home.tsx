@@ -1,23 +1,23 @@
-import NewWindow from "react-new-window";
-import Logo from "../assents/Logo";
-import BasicLayout from "../components/layout/BasicLayout";
-import PresentationMode from "../components/modes/presentationMode/PresentationMode";
-import TextMode from "../components/modes/textMode/TextMode";
+import NewWindow from 'react-new-window';
+import Logo from '../assents/Logo';
+import BasicLayout from '../components/layout/BasicLayout';
+import PresentationMode from '../components/modes/presentationMode/PresentationMode';
+import TextMode from '../components/modes/textMode/TextMode';
 import {
   CantoralModeConstants,
   ScreenModeConstants,
-} from "../constants/SettingsConstants";
-import useGetSongs from "../hooks/useGetSongs";
-import { useDispatch, useSelector } from "../hooks/useRedux";
+} from '../constants/SettingsConstants';
+import useGetSongs from '../hooks/useGetSongs';
+import { useDispatch, useSelector } from '../hooks/useRedux';
 import {
   cantoralModeSelector,
   screenModeSelector,
   setShowPresenterModal,
   showPresenterModalSelector,
-} from "../store/slices/generalConfigSlice";
-import { selectedSongSelector } from "../store/slices/selectedSongSlice";
-import PresenterModal from "../components/modal/PresenterModal";
-import Footer from "../components/footer/Footer";
+} from '../store/slices/generalConfigSlice';
+import { selectedSongSelector } from '../store/slices/selectedSongSlice';
+import PresenterModal from '../components/modal/PresenterModal';
+import Footer from '../components/footer/Footer';
 
 function Home() {
   const { error, loading } = useGetSongs();
@@ -55,8 +55,8 @@ function Home() {
         <div
           style={{
             backgroundColor: screenMode,
-            height: "100vh",
-            width: "100vw",
+            height: '100vh',
+            width: '100vw',
           }}
         />
       )}

@@ -1,5 +1,5 @@
 export const getInitials = (nameString: string) => {
-  const names = nameString.split(" ");
+  const names = nameString.split(' ');
   let initials = names[0].substring(0, 1).toUpperCase();
 
   if (names.length > 1) {
@@ -9,9 +9,9 @@ export const getInitials = (nameString: string) => {
 };
 
 export const getRandomStringAndNumber = (numberChar: number) => {
-  let result = "";
+  let result = '';
   const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
   for (let i = 0; i < numberChar; i += i) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -40,7 +40,7 @@ export const nullableStringCompare = (
   if (a && b)
     return a.localeCompare(b, undefined, {
       numeric: true,
-      sensitivity: "base",
+      sensitivity: 'base',
     });
   return 0;
 };

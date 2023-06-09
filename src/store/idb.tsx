@@ -1,5 +1,5 @@
-import { openDB, DBSchema } from "idb";
-import { SongInterface } from "../types/SongTypes";
+import { openDB, DBSchema } from 'idb';
+import { SongInterface } from '../types/SongTypes';
 
 interface SettingsDBSchema extends DBSchema {
   settings: {
@@ -17,16 +17,16 @@ interface SongDBSchema extends DBSchema {
   };
 }
 
-export const data_idb = openDB<SongDBSchema>("data_db", 1, {
+export const data_idb = openDB<SongDBSchema>('data_db', 1, {
   upgrade(data_idb) {
-    data_idb.createObjectStore("songs", {
-      keyPath: "id",
+    data_idb.createObjectStore('songs', {
+      keyPath: 'id',
     });
   },
 });
 
-export const settings_idb = openDB<SettingsDBSchema>("settings_db", 1, {
+export const settings_idb = openDB<SettingsDBSchema>('settings_db', 1, {
   upgrade(settings_idb) {
-    settings_idb.createObjectStore("settings");
+    settings_idb.createObjectStore('settings');
   },
 });

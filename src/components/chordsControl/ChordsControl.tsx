@@ -1,7 +1,7 @@
-import { FC, useState, useEffect } from "react";
-import { IconButton, Stack, Typography } from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { FC, useState, useEffect } from 'react';
+import { IconButton, Stack, Typography } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 export interface ChordsControlProps {
   capo: number;
@@ -31,63 +31,68 @@ const ChordsControl: FC<ChordsControlProps> = ({ capo, tono, onchange }) => {
     if (onchange) onchange(currentCapo, currentTono);
   }, [currentCapo, currentTono]);
 
+  useEffect(() => {
+    setCurrentTono(tono);
+    setCurrentCapo(capo);
+  }, [tono, capo]);
+
   const getTonosPosiblesCacion = (tonoCancion: string) => {
     //Crear listados de tonos
     const tonosMayores = [
-      "DO",
-      "DO#",
-      "RE",
-      "RE#",
-      "MI",
-      "FA",
-      "FA#",
-      "SOL",
-      "SOL#",
-      "LA",
-      "LA#",
-      "SI",
+      'DO',
+      'DO#',
+      'RE',
+      'RE#',
+      'MI',
+      'FA',
+      'FA#',
+      'SOL',
+      'SOL#',
+      'LA',
+      'LA#',
+      'SI',
     ];
     const tonosMayoresSeptimos = [
-      "DO7",
-      "DO#7",
-      "RE7",
-      "RE#7",
-      "MI7",
-      "FA7",
-      "FA#7",
-      "SOL7",
-      "SOL#7",
-      "LA7",
-      "LA#7",
-      "SI7",
+      'DO7',
+      'DO#7',
+      'RE7',
+      'RE#7',
+      'MI7',
+      'FA7',
+      'FA#7',
+      'SOL7',
+      'SOL#7',
+      'LA7',
+      'LA#7',
+      'SI7',
     ];
     const tonosMenores = [
-      "Dom",
-      "Do#m",
-      "Rem",
-      "Re#m",
-      "Mim",
-      "Fam",
-      "Fa#m",
-      "Solm",
-      "Sol#m",
-      "Lam",
-      "La#m",
-      "Sim",
+      'Dom',
+      'Do#m',
+      'Rem',
+      'Re#m',
+      'Mim',
+      'Fam',
+      'Fa#m',
+      'Solm',
+      'Sol#m',
+      'Lam',
+      'La#m',
+      'Sim',
     ];
     const tonosMenoresSeptimos = [
-      "Dom7",
-      "Do#m7",
-      "Rem7",
-      "Re#m7",
-      "Mim7",
-      "Fam7",
-      "Fa#m7",
-      "Solm7",
-      "Sol#m7",
-      "Lam7",
-      "La#m7",
-      "Sim7",
+      'Dom7',
+      'Do#m7',
+      'Rem7',
+      'Re#m7',
+      'Mim7',
+      'Fam7',
+      'Fa#m7',
+      'Solm7',
+      'Sol#m7',
+      'Lam7',
+      'La#m7',
+      'Sim7',
     ];
 
     //Verificar a que escala pertenece el tono y devolverla
@@ -124,7 +129,7 @@ const ChordsControl: FC<ChordsControlProps> = ({ capo, tono, onchange }) => {
       direction="row"
       spacing={2}
       justifyContent="center"
-      sx={{ py: 3, width: "100%", position: "fixed", backgroundColor: "#fff" }}
+      sx={{ py: 3, width: '100%', position: 'fixed', backgroundColor: '#fff' }}
     >
       <IconButton onClick={handleLessCapo}>
         <RemoveCircleIcon />
