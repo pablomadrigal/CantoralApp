@@ -42,20 +42,26 @@ export const cantoralToHTML = ({
   tonoBaseCancion,
 }: cantoralToHTMLProps) => {
   const htmlLine = song.map((line) => {
-    let foo = `<div>${line.letter}<br/></div>`;
+    let htmlText = `<div>${line.letter}<br/></div>`;
     let offset = 5;
-    line.chords.forEach((chord) => {
-      const chordHTML = `<span class='acorde'>${getModifiedTono(
-        chord.type,
-        currentTono,
-        currentCapo,
-        capoBase,
-        tonoBaseCancion
-      )}${chord.decoration?.sort(chordDecorationSort).join() ?? ''}</span>`;
-      foo = insertSubStringAt(foo, chord.beginning + offset, chordHTML);
-      offset += chordHTML.length;
-    });
-    return foo;
+    [...line.chords]
+      .sort((a, b) => a.beginning - b.beginning)
+      .forEach((chord) => {
+        const chordHTML = `<span class='acorde'>${getModifiedTono(
+          chord.type,
+          currentTono,
+          currentCapo,
+          capoBase,
+          tonoBaseCancion
+        )}</span>`;
+        htmlText = insertSubStringAt(
+          htmlText,
+          chord.beginning + offset,
+          chordHTML
+        );
+        offset += chordHTML.length;
+      });
+    return htmlText;
   });
   return htmlLine.join('');
 };
