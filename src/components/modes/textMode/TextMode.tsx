@@ -92,7 +92,7 @@ const TextMode = () => {
                   const html = cantoralToHTML({
                     song: verse.lines,
                     capoBase: selectedSong?.capo,
-                    tonoBaseCancion: selectedSong?.baseChord?.type || 'DO',
+                    tonoBaseCancion: selectedSong?.baseChord?.type ?? 'DO',
                     currentTono,
                     currentCapo,
                   });
