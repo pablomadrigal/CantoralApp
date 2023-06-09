@@ -1,12 +1,12 @@
-import { IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
-import { AutoAwesomeMosaic as AutoAwesomeMosaicIcon } from "@mui/icons-material";
-import { useState } from "react";
-import { useDispatch } from "../../hooks/useRedux";
+import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import { AutoAwesomeMosaic as AutoAwesomeMosaicIcon } from '@mui/icons-material';
+import { useState } from 'react';
+import { useDispatch } from '../../hooks/useRedux';
 import {
   setPresentationMode,
   setTextMode,
   setChordsMode,
-} from "../../store/slices/generalConfigSlice";
+} from '../../store/slices/generalConfigSlice';
 
 const ModeMenu = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -50,8 +50,8 @@ const ModeMenu = () => {
           onClick={handleClick}
           sx={[
             {
-              "&:focus": {
-                outline: "none",
+              '&:focus': {
+                outline: 'none',
               },
             },
           ]}
@@ -65,7 +65,7 @@ const ModeMenu = () => {
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          "aria-labelledby": "basic-button",
+          'aria-labelledby': 'basic-button',
         }}
       >
         <MenuItem onClick={handleTextMode}>Texto Completo</MenuItem>

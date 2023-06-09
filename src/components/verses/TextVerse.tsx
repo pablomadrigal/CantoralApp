@@ -8,7 +8,7 @@ interface TextVerseProps {
 
 const TextVerse: FC<TextVerseProps> = ({ children, type }) => {
   return (
-    <Typography component="div" textAlign="left">
+    <Typography component="div" textAlign="left" sx={{ whiteSpace: 'pre' }}>
       <br />
       {type.includes('E') && (
         <span style={{ fontWeight: 'bold' }}>Estribillo</span>
