@@ -53,7 +53,9 @@ export const cantoralToHTML = ({
           currentCapo,
           capoBase,
           tonoBaseCancion
-        )}</span>`;
+        )}${
+          chord?.decoration?.sort(chordDecorationSort).join('') ?? ''
+        }</span>`;
         htmlText = insertSubStringAt(
           htmlText,
           chord.beginning + offset,
